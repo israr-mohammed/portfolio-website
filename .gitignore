@@ -1,0 +1,14 @@
+# Local tooling, not part of the published site
+.venv/
+__pycache__/
+
+# Local-only design drafts (CLAUDE.md: never published, not for git)
+design/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit (CLAUDE.md security rule)
+.env
+*.env
