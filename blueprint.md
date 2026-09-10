@@ -49,14 +49,17 @@ Success means:
 |---|---|---|
 | Name | Israr Mohammed | Verified (resume) |
 | Headline | Data Analyst \| Business Intelligence Analyst | Verified (resume) |
-| Site headline | Data analyst and BI analyst | DRAFT (owner to approve) |
+| Site headline | Data Analyst, Business Analyst and BI Analyst | Approved (owner, S1) |
 | Location | Gurugram, Haryana | Verified (resume) |
 | Experience | 4 years (as stated in the resume summary) | Verified (resume) |
 | Current role | Business Analyst, EXL (Apr 2025 to present) | Verified (resume) |
-| Target roles | Data Analyst, BI Analyst, Business Analyst | TODO(owner): confirm, and say whether Analytics Engineer or Data Engineer roles are also targets |
+| Target roles | Data Analyst, BI Analyst, Business Analyst (no Analytics Engineer or Data Engineer) | Confirmed (owner, S1) |
 
-**Positioning sentence (DRAFT, for owner to rewrite or approve):**
+**Positioning sentence (approved by owner, S1):**
 "I turn operational data into validated datasets and Power BI dashboards that help teams find process gaps and close them."
+
+**About paragraph (approved by owner, S1; for homepage §5.2 item 3):**
+"I'm a data analyst, business analyst and BI analyst with 4 years of experience turning operational data into validated datasets and Power BI dashboards. At EXL, I support a UK utility client, working across SQL, Python, Databricks and Power BI to close process gaps and deliver ad hoc analysis within SLA. My background is in mechanical and production engineering, which shapes how I approach data: as a process to measure, model and improve. I'm based in Gurugram and looking for data analyst, business analyst and BI analyst roles."
 
 **Core strengths, all evidenced in the resume:**
 
@@ -67,10 +70,10 @@ Success means:
 
 **Differentiators to use:**
 
-- **Engineering background (angle is DRAFT; owner decides whether to use it).** A B.Tech in Mechanical and an M.Tech in Production Engineering fit naturally with process-improvement analytics.
+- **Engineering background (confirmed, S1: use this angle).** A B.Tech in Mechanical and an M.Tech in Production Engineering fit naturally with process-improvement analytics.
 - **Sukoon.** A full-stack app with PostgreSQL and raw SQL shows database depth and the ability to build and ship, which is rare for an analyst.
 
-**How Sukoon is framed:** a "beyond analytics" project, not the lead story, unless the owner targets engineering roles.
+**How Sukoon is framed:** a "beyond analytics" project, not the lead story (confirmed, S1: target roles are Data/BI/Business Analyst only, so Sukoon stays secondary).
 
 ---
 
@@ -81,12 +84,13 @@ The phone number is intentionally excluded from the site and from this repositor
 
 ### 3.1 Identity and links
 
-- **Email:** israr4075@gmail.com. TODO(owner): confirm this is the address to publish, or provide a dedicated one.
+- **Email:** israr4075@gmail.com. Confirmed (owner, S1) as the address to publish.
 - **LinkedIn:** https://www.linkedin.com/in/israrmohammed
-- **GitHub:** TODO(owner): username or URL (the resume only shows the text "github").
-- **Naukri profile URL:** TODO(owner): optional; whether to link it publicly.
-- **Portfolio URL:** the Pages URL until a custom domain exists (TODO once S0 is done).
-- **Photo:** TODO(owner): yes or no.
+- **GitHub:** https://github.com/israr-mohammed/. Confirmed (owner, S1).
+- **Naukri profile URL:** not linked. The URL the owner supplied (`.../mnjuser/profile?id=&altresid`) is a
+  private, logged-in dashboard link with an empty id, not a public profile URL, so it is not published (S1).
+- **Portfolio URL:** https://portfolio-website-bo0.pages.dev/ (S0). Custom domain decision deferred to S13 (§12).
+- **Photo:** yes, a small photo in the typographic hero (owner, S1). TODO(owner): supply the headshot file.
 
 ### 3.2 Professional summary (resume wording, to be condensed for the site)
 
@@ -104,7 +108,7 @@ Databricks and Advanced Excel.
 - **BI and visualization:** Power BI, Tableau, DAX, Power Query, Data Modelling, Dashboard Development
 - **Data platforms:** Databricks, Spark SQL, Hadoop, Hive/HQL, Amazon Redshift
 - **Analytics and business:** Data Analysis, Data Validation, KPI Reporting, Advanced Excel, Alteryx, Requirement Gathering, Stakeholder Management
-- **From Sukoon (only after the owner confirms it goes on the site):** Flask, PostgreSQL, HTML/CSS/JS, pytest, Git/GitHub
+- **From Sukoon (confirmed, S1):** Flask, PostgreSQL, HTML/CSS/JS, pytest, Git/GitHub
 
 ### 3.4 Experience
 
@@ -135,8 +139,10 @@ Databricks and Advanced Excel.
 
 - The resume describes a planned career break for competitive government examination preparation.
 - During it he continued building analytics skills and completed the IBM Data Analyst Professional Certificate and the Codebasics Data Analytics Bootcamp.
-- Site wording is TODO(owner): show it as "Career break and upskilling", and decide whether to mention the exam preparation.
-  Showing the gap honestly is recommended, because recruiters see it on the resume anyway.
+- Site wording (approved, S1): lead with "Career break and upskilling" (the IBM certificate and the Codebasics
+  bootcamp), with a brief, low-emphasis mention that the break was for competitive government exam preparation —
+  not the focus of the entry. Showing the gap honestly, because recruiters see it on the resume anyway.
+- Notice period / availability: not shown publicly (owner, S1).
 
 **Think & Learn Private Limited (BYJU'S), Senior Associate and Associate (Jul 2020 to Jan 2023)**
 
@@ -188,6 +194,8 @@ Databricks and Advanced Excel.
 - Status and usage (only if true).
 - Lessons learned.
 - Screenshots with demo data only.
+- Honest disclosure that Claude (AI) was used to help build Sukoon (owner confirmed this in S1) — state it
+  plainly in "how it's built" and/or "lessons learned", rather than implying the code is unassisted work.
 
 Note: the three dashboard projects come from well-known bootcamp challenges, so many candidates show the same ones.
 What differentiates Israr's versions is the write-up: the questions asked, the modelling choices, and the insights.
@@ -197,10 +205,14 @@ Consider one original-dataset project after V1.
 
 - Use two PDF versions. The private one keeps the phone number and is for direct applications.
   The public `site/resume.pdf` removes the phone number.
-- The "Portfolio" and "github" link texts in the PDF must point to the final URLs.
+- The "Portfolio" and "github" link texts in the PDF must point to the final URLs
+  (GitHub: https://github.com/israr-mohammed/; portfolio: the pages.dev URL until a custom domain exists).
 - Text extracted from the PDF showed joined words ("finalbill", "leavejourney").
   Copy-paste the PDF text to check it reads cleanly for ATS parsing.
 - Keep the headline identical on the resume, LinkedIn, Naukri and the site.
+  TODO(owner): the resume PDF and LinkedIn/Naukri currently show "Data Analyst | Business Intelligence Analyst".
+  The site now uses "Data Analyst, Business Analyst and BI Analyst" (S1 decision). Update the resume PDF,
+  LinkedIn headline and Naukri headline to match before launch (S9/S13), so all four stay identical.
 
 ---
 
@@ -515,9 +527,11 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
   - Scope: inspect the folder; `git init`; `.gitignore`; README stub; `site/index.html` placeholder; GitHub repo; connect Cloudflare Pages.
   - Done when: the placeholder is live on the pages.dev URL over HTTPS, and pushing to `main` redeploys it.
 
-- [ ] **S1: Content finalization (no code)**
+- [x] **S1: Content finalization (no code)**
   - Scope: resolve the §12 questions needed for V1. Owner approves the DRAFT copy and fills the §3 TODOs.
-  - Done when: §2 and §3 have no blocking TODOs for S3 to S9.
+  - Done when: §2 and §3 have no blocking TODOs for S3 to S6. Business 360 and Sukoon case-study content, live
+    dashboard URLs, certification links and the custom-domain decision remain as explicit §12 TODOs, scoped to
+    their own specs (S7, S8, S6, S13) rather than blocking S1 (owner decision, S1 checkpoint).
 
 - [ ] **S2: Design system and specimen**
   - Scope: font choice and subset; final tokens; contrast checks for both themes; the specimen page in `design/` (local only).
@@ -662,20 +676,30 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 | D8 | V1 case studies: Business 360 and Sukoon | One analytics depth piece plus one build piece; the others as summaries |
 | D9 | Experience comes before projects on home | 4 years of professional experience is the strongest credential |
 | D10 | GitHub repo: https://github.com/israr-mohammed/portfolio-website (public). Stable production URL: https://portfolio-website-bo0.pages.dev/ | S0 completed: repo created, connected to Cloudflare Pages, placeholder verified live over HTTPS. Answers §12 Q3 (GitHub username/URL). |
+| D11 | Site headline: "Data Analyst, Business Analyst and BI Analyst" (all three roles) | The resume headline, the resume summary wording and the actual EXL job title each name a different subset of the three; the owner chose to include all three consistently rather than pick one, since the target roles are the same three. Resume PDF, LinkedIn and Naukri headlines need updating to match (see §3.8). |
+| D12 | Target roles: Data Analyst, BI Analyst, Business Analyst only; no Analytics Engineer or Data Engineer | Keeps Sukoon framed as secondary ("beyond analytics"), not the lead story. Answers §12 Q1. |
+| D13 | Positioning sentence and about paragraph approved as drafted (§2) | Owner approved the DRAFT positioning sentence unchanged; the about paragraph was drafted from the approved headline, positioning sentence and engineering angle, and approved as written. Answers part of §12 Q12. |
+| D14 | Use the engineering-background differentiator angle | Owner confirmed connecting the B.Tech Mechanical / M.Tech Production Engineering background to process-improvement analytics. |
+| D15 | Public email israr4075@gmail.com; GitHub https://github.com/israr-mohammed/; Naukri not linked | Naukri URL supplied was a private, logged-in dashboard link (empty `id` parameter), not a publishable public profile URL. Answers §12 Q2 and Q3. |
+| D16 | Photo: yes, a small photo in the hero | Headshot file still to be supplied by the owner. Answers §12 Q7. |
+| D17 | Custom domain decision deferred to S13; ship on the pages.dev URL in the meantime | Avoids blocking S1 through S9 on a domain-purchase decision. Answers §12 Q10 (deferred, not declined). |
+| D18 | Career-break wording: lead with "career break and upskilling"; brief, low-emphasis mention of government exam preparation | Matches the resume's own disclosure while keeping the site entry focused on upskilling. Answers §12 Q8. |
+| D19 | Notice period / availability not shown publicly | Owner preference. Answers §12 Q9. |
+| D20 | Sukoon's stack (Flask, PostgreSQL, HTML/CSS/JS, pytest, Git/GitHub) added to the §3.3 skills list; Sukoon's AI (Claude) assistance must be disclosed in its case study | Owner confirmed Sukoon appears on the site and that Claude was used to help build it; per CLAUDE.md's content-honesty rules, this must be stated plainly, not implied as unassisted work. |
+| D21 | Test devices confirmed: Windows, iPhone and Android all available | Enables a full cross-browser and Safari/iOS QA pass at S12. Answers §12 Q11. |
 
 ---
 
 ## 12. Open questions (owner)
 
-1. Target roles: Data Analyst, BI Analyst and Business Analyst only, or also Analytics Engineer or Data Engineer? This decides how prominent Sukoon is.
-2. Public email: confirm israr4075@gmail.com or provide a dedicated address.
-3. GitHub username or URL.
-4. Live dashboard URLs for all three projects, and where each is hosted.
-5. Business 360 details for the case study (§3.7 list).
-6. Sukoon verified facts, repository visibility and demo-data screenshots (§3.7 list).
-7. Photo: yes or no.
-8. Career break wording on the site.
-9. Show notice period or availability publicly? If yes, what should it say?
-10. Custom domain: yes or no, and preferred name.
-11. Test devices available, especially any iPhone or Mac.
-12. Approve or rewrite the DRAFT headline, positioning sentence and about text.
+Resolved in S1: target roles, headline, positioning sentence, about text, engineering-background angle, public
+email, GitHub URL, Naukri (not linked), photo, career-break wording, notice period, Sukoon skills, test devices.
+See §11 (D11–D21) for each decision and its reasoning. Remaining, still blocking specs as noted:
+
+1. Live dashboard URLs for all three projects, and where each is hosted. Blocks S7 (project summary links).
+2. Business 360 details for the case study (§3.7 list): business question, dataset, data model, DAX measures,
+   findings, screenshots. Blocks S7.
+3. Sukoon verified facts, repository visibility and demo-data screenshots (§3.7 list), including how the
+   AI-assistance disclosure (D20) is worded. Blocks S8.
+4. Certification verification links and dates, IBM and Codebasics (§3.6). Blocks S6.
+5. Custom domain: yes or no, and preferred name (deferred per D17; revisit at S13, not blocking).
