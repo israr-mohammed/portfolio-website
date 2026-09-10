@@ -511,7 +511,7 @@ Sitemap: https://<final-domain>/sitemap.xml
 
 Each spec follows the same pattern: plan, owner approval, build, acceptance checks, commit, tick.
 
-- [ ] **S0: Repository and hosting setup**
+- [x] **S0: Repository and hosting setup**
   - Scope: inspect the folder; `git init`; `.gitignore`; README stub; `site/index.html` placeholder; GitHub repo; connect Cloudflare Pages.
   - Done when: the placeholder is live on the pages.dev URL over HTTPS, and pushing to `main` redeploys it.
 
@@ -661,6 +661,7 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 | D7 | Impact charts are the one bold design element | Grounded in the analyst's craft, and not a template default |
 | D8 | V1 case studies: Business 360 and Sukoon | One analytics depth piece plus one build piece; the others as summaries |
 | D9 | Experience comes before projects on home | 4 years of professional experience is the strongest credential |
+| D10 | GitHub repo: https://github.com/israr-mohammed/portfolio-website (public). Stable production URL: https://portfolio-website-bo0.pages.dev/ | S0 completed: repo created, connected to Cloudflare Pages, placeholder verified live over HTTPS. Answers §12 Q3 (GitHub username/URL). |
 
 ---
 
