@@ -243,17 +243,33 @@ The site should look like it was made by someone who respects data. It shows imp
 
 - Blue and ochre stay distinguishable for common color-vision deficiencies. Charts also use direct labels, so meaning never depends on color.
 - Dark mode follows the operating-system setting (`prefers-color-scheme`) and ships in S11. There is no manual toggle in V1.
+- **Verified in S2:** every text-bearing pair clears WCAG 2.2 AA in both themes, most clear AAA —
+  `--c-ink` 13.04:1 light / 14.59:1 dark, `--c-graphite` 6.45:1 / 8.07:1, `--c-signal` 6.33:1 / 8.18:1,
+  `--c-marker` 3.35:1 / 8.36:1 (needs 3:1, non-text use only). `--c-line` (1.42:1 / 1.52:1) is exempt from
+  a contrast requirement: it is restricted to rules/axes/diagram strokes only, never text and never the
+  sole indicator of a required UI boundary. No token values changed from the draft above.
 
 ### 4.3 Typography
 
-- **Primary candidate: Archivo** (variable, with weight and width axes, SIL OFL). Headings use a wider width; body text uses normal width.
-  Subset to Latin, self-host as one `.woff2` if the size stays under about 90 KB.
-- **Alternative: IBM Plex Sans.** The final choice is made with a specimen page in S2.
+- **Typeface: IBM Plex Sans** (SIL OFL). Chosen by the owner in S2 after comparing it against Archivo
+  side by side in the specimen. Self-hosted as two static weights: Regular (400, body) and SemiBold
+  (600, headings).
+- **Subsetting:** a Latin subset scoped to the exact characters found in this document's approved copy —
+  base printable ASCII plus `©` (used in the footer, §5.2) and the em dash (used in the career-break and
+  Sukoon AI-disclosure wording, §3.4). No curly quotes/apostrophes exist anywhere in the approved copy, so
+  none were added. Produced with `fonttools`/`pyftsubset`. Final payload:
+  `IBMPlexSans-Regular-subset.woff2` (9.34 KB) + `IBMPlexSans-SemiBold-subset.woff2` (9.61 KB) =
+  **18.96 KB total across 2 files**, well under the ~90 KB budget.
 - **Code:** the system monospace stack (`ui-monospace, SFMono-Regular, Consolas, monospace`), so there is no download.
-- **Fallback font:** a metric-matched fallback (`size-adjust` / `ascent-override`) prevents layout shift when the web font loads.
-- **Numbers:** use `font-variant-numeric: tabular-nums` in charts and tables if the font supports it (check in S2).
-- **Type scale:** fluid, about 1.25 on mobile rising to about 1.333 on desktop. Starting values, tuned in S2:
-  `--step--1: clamp(.83rem,.8rem + .15vw,.9rem)`, `--step-0: clamp(1.06rem,1rem + .25vw,1.13rem)`,
+- **Fallback font:** a metric-matched fallback prevents layout shift when the web font loads. Computed
+  from IBM Plex Sans Regular's `hhea`/`OS/2` tables in S2: `ascent-override: 102.5%`,
+  `descent-override: 27.5%`, `line-gap-override: 0%`. `size-adjust` is tuned in S3 against whichever
+  system fallback stack is used, since it needs an empirical no-CLS check rather than a computed constant.
+- **Numbers:** IBM Plex Sans exposes no `tnum` (tabular figures) OpenType feature — confirmed in S2 via
+  `fontTools` feature inspection, not assumed. `font-variant-numeric: tabular-nums` is therefore not used
+  in chart or table styles; declaring it would silently no-op.
+- **Type scale:** fluid, about 1.25 on mobile rising to about 1.333 on desktop. Final values, unchanged
+  from the S2 draft: `--step--1: clamp(.83rem,.8rem + .15vw,.9rem)`, `--step-0: clamp(1.06rem,1rem + .25vw,1.13rem)`,
   `--step-1: clamp(1.27rem,1.18rem + .4vw,1.5rem)`, `--step-2: clamp(1.53rem,1.38rem + .7vw,2rem)`,
   `--step-3: clamp(1.83rem,1.6rem + 1.1vw,2.66rem)`, `--step-4: clamp(2.2rem,1.85rem + 1.8vw,3.55rem)`.
 - **Line height:** 1.55 for body text, 1.1 to 1.2 for headings.
@@ -533,7 +549,7 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
     dashboard URLs, certification links and the custom-domain decision remain as explicit §12 TODOs, scoped to
     their own specs (S7, S8, S6, S13) rather than blocking S1 (owner decision, S1 checkpoint).
 
-- [ ] **S2: Design system and specimen**
+- [x] **S2: Design system and specimen**
   - Scope: font choice and subset; final tokens; contrast checks for both themes; the specimen page in `design/` (local only).
   - Done when: the owner approves the type, colors and one sample impact chart. Tokens are copied into §4.
 
@@ -687,6 +703,9 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 | D19 | Notice period / availability not shown publicly | Owner preference. Answers §12 Q9. |
 | D20 | Sukoon's stack (Flask, PostgreSQL, HTML/CSS/JS, pytest, Git/GitHub) added to the §3.3 skills list; Sukoon's AI (Claude) assistance must be disclosed in its case study | Owner confirmed Sukoon appears on the site and that Claude was used to help build it; per CLAUDE.md's content-honesty rules, this must be stated plainly, not implied as unassisted work. |
 | D21 | Test devices confirmed: Windows, iPhone and Android all available | Enables a full cross-browser and Safari/iOS QA pass at S12. Answers §12 Q11. |
+| D22 | Final typeface: IBM Plex Sans, self-hosted as two subsetted static weights (Regular 400, SemiBold 600), 18.96 KB total | Owner compared Archivo and IBM Plex Sans side by side in the S2 specimen and chose IBM Plex Sans. Subset scoped to the exact characters found in this document's approved copy (base ASCII plus © and the em dash), produced with `fonttools`/`pyftsubset`; well under the ~90 KB / 2-file budget in §4.3. |
+| D23 | `font-variant-numeric: tabular-nums` is not used anywhere in chart or table styles | IBM Plex Sans exposes no `tnum` (tabular figures) OpenType feature — confirmed in S2 via `fontTools` feature inspection rather than assumed. Declaring the property would silently no-op; §4.3 flagged this as a check-in-S2 item. |
+| D24 | §4.2 color tokens verified against WCAG 2.2 AA in both themes with no value changes needed | Computed with a rerunnable contrast script in S2 (see §4.2 for the ratios). `--c-line` stays exempt: restricted to rules/axes/strokes, never text or a required UI boundary. |
 
 ---
 
