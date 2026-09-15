@@ -161,7 +161,7 @@
   .site-header .brand:hover { color: var(--c-signal); }
 
   .site-nav ul { display: flex; flex-wrap: wrap; gap: var(--space-m); }
-  .site-nav a { color: var(--c-ink); text-decoration: none; }
+  .site-nav a { display: inline-block; padding-block: var(--space-2xs); color: var(--c-ink); text-decoration: none; }
   .site-nav a:hover { color: var(--c-signal); text-decoration: underline; }
 
   .site-footer {
@@ -255,7 +255,7 @@
   }
   .social-links a {
     display: inline-block;
-    padding-block: var(--space-3xs);
+    padding-block: var(--space-2xs);
     color: var(--c-ink);
     text-decoration: none;
   }
@@ -380,6 +380,8 @@
   .timeline-tools { color: var(--c-graphite); font-size: var(--step--1); }
   .timeline-entry details { max-width: 60ch; }
   .timeline-entry summary {
+    display: inline-block;
+    padding-block: var(--space-2xs);
     cursor: pointer;
     color: var(--c-signal);
     font-size: var(--step--1);
@@ -538,6 +540,37 @@
       animation-duration: .001ms;
       animation-iteration-count: 1;
       transition-duration: .001ms;
+    }
+  }
+
+  /* Print (S9): applies sitewide since header/footer/actions markup is
+     shared across pages, not resume-only. Hides navigation and on-page
+     actions, and prints link destinations as visible text (blueprint
+     §5.5), since a printed/PDF page can't be clicked. */
+  @media print {
+    @page { size: A4; margin: 10mm; }
+    .site-header, .site-footer, .skip-link, .actions {
+      display: none;
+    }
+    .container { max-width: 100%; }
+    .section { padding-block: 0; }
+    body { font-size: var(--step--1); line-height: 1.2; }
+    h1 { font-size: var(--step-2); }
+    h2 { font-size: var(--step-0); margin-block-end: var(--space-3xs); }
+    .case-grid, .experience .timeline, .skills-grid, .education-grid, .project-grid { gap: var(--space-3xs); }
+    .timeline-entry { padding-block-start: var(--space-3xs); }
+    .timeline-bullets, .feature-list { gap: var(--space-3xs); }
+    .project-block { gap: var(--space-3xs); padding-block-start: var(--space-3xs); }
+    .project-grid { grid-template-columns: repeat(2, 1fr); }
+    a[href^="http"], a[href^="/"] { overflow-wrap: anywhere; }
+    /* Power BI report links carry a long opaque token that's meaningless on
+       paper and would blow out the page count; the link itself still stays
+       clickable in the PDF's own link annotations, just not printed as text. */
+    a[href^="http"]:not([href*="powerbi.com"])::after {
+      content: " (" attr(href) ")";
+    }
+    a[href^="/"]::after {
+      content: " (https://portfolio-website-bo0.pages.dev" attr(href) ")";
     }
   }
 }

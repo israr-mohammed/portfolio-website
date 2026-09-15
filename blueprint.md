@@ -170,9 +170,9 @@ Databricks and Advanced Excel.
 
 | Project | Stack (from resume) | Links | Site treatment |
 |---|---|---|---|
-| Business 360 Dashboard | Power BI, MySQL, Power Query, DAX, Excel | None verified to exist (checked S7 and S8); TODO(owner) if one is ever hosted | Full case study page (V1) — shipped S8 |
-| IPL 2024 Analytics (Sports Magazine Project) | Power BI, Power Query, DAX | TODO(owner): live dashboard URL | Summary block + screenshot |
-| Beverage Market Analysis | SQL, Power BI, Power Query, DAX | TODO(owner): live dashboard URL | Summary block + screenshot |
+| Business 360 Dashboard | Power BI, MySQL, Power Query, DAX, Excel | Live (published S8 on the case-study page; added to the homepage card S9) | Full case study page (V1) — shipped S8 |
+| IPL 2024 Analytics (Sports Magazine Project) | Power BI, Power Query, DAX | Live (published S8 on the homepage card) | Summary block + screenshot |
+| Beverage Market Analysis | SQL, Power BI, Power Query, DAX | Live (published S8 on the homepage card) | Summary block + screenshot |
 | Sukoon | Flask, Jinja2, PostgreSQL (psycopg2, raw SQL), HTML/CSS/JS, pytest, gunicorn, Supabase, Render (planned, not yet deployed — S8), PWA | Private — no public repository or live link (owner decision, D29) | Full case study page (V1) — shipped S8 |
 
 **Verified project summaries (S7; source: Israr's own Codebasics learner portfolio at
@@ -649,7 +649,7 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
     stays unlinked by owner decision (private household project). See §11 (D25, D29–D32)
     and §12 (items 2–3, resolved below).
 
-- [ ] **S9: Resume page and public PDF**
+- [x] **S9: Resume page and public PDF**
   - Scope: `/resume/` HTML; print stylesheet; public PDF without the phone number and with metadata stripped; `/resume.pdf` header.
   - Done when: it prints to one or two clean A4 pages, the PDF downloads as `Israr-Mohammed-Resume.pdf`, and the text copy-pastes cleanly.
 
@@ -795,10 +795,10 @@ Resolved in S1: target roles, headline, positioning sentence, about text, engine
 email, GitHub URL, Naukri (not linked), photo, career-break wording, notice period, Sukoon skills, test devices.
 See §11 (D11–D21) for each decision and its reasoning. Remaining, still blocking specs as noted:
 
-1. Live dashboard URLs for all three projects, and where each is hosted. Not found even on the
-   owner's Codebasics portfolio page (checked directly, S7), and still not found for Business 360
-   after the full S8 verification pass. No longer blocks S7 or S8 (both project's case-study/home
-   sections ship without these links; Business 360's Links section is omitted rather than populated).
+1. ~~Live dashboard URLs for all three projects, and where each is hosted.~~ Resolved in S8
+   (commit `c47b43e`): live Power BI links published for all three dashboard projects — IPL 2024
+   and Beverage Market on their homepage cards, Business 360 on its case-study page. S9 adds the
+   same Business 360 link to its homepage card too, for consistency with the other two.
 2. ~~Business 360 details for the case study.~~ Resolved in S8: real page list, five implemented
    views, five owner-supplied DAX formulas, a real Model-view screenshot, and five view screenshots
    (Finance, Sales, Marketing, Supply Chain, Executive) verified and published. See D25–D28.
