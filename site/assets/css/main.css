@@ -264,6 +264,84 @@
   /* About / Contact (S4) */
   .about h2, .contact h2 { margin-block-end: var(--space-m); }
   .contact .actions { margin-block-start: var(--space-m); }
+
+  /* Selected impact (S5) */
+  .impact h2 { margin-block-end: var(--space-m); }
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  @media (width >= 64em) {
+    .impact-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2xl);
+    }
+  }
+  .impact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-s);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--c-line);
+  }
+  .impact-item h3 { font-size: var(--step-1); }
+  .chart-figure { margin: 0; max-width: 24rem; width: 100%; }
+  .chart-caption {
+    margin-block-start: var(--space-2xs);
+    color: var(--c-graphite);
+    font-size: var(--step--1);
+  }
+  .impact-context { max-width: 60ch; }
+  .impact-tools { color: var(--c-graphite); font-size: var(--step--1); }
+  /* Text-only item (no baseline to chart, blueprint §4.6): modest emphasis
+     via font-size and <strong>, never an isolated big-number stat block. */
+  .impact-statement { font-size: var(--step-1); }
+  .impact-statement strong { font-weight: 600; }
+
+  /* Impact chart primitives, carried over from the S2-approved specimen
+     (design/specimen/specimen.css) unchanged, plus a bar variant for the
+     indexed-runtime chart. */
+  .chart-line {
+    fill: none;
+    stroke: var(--c-signal);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  /* Default (no JS): fully drawn. The drawn/undrawn split is gated behind
+     .js, which only script adds, so JS-off always shows the finished chart
+     per blueprint §4.7. */
+  .chart-line[data-animate] { stroke-dasharray: 300; stroke-dashoffset: 0; }
+  .js .chart-line[data-animate] {
+    stroke-dashoffset: 300;
+    animation: chart-draw-line .9s ease-out forwards;
+  }
+  @keyframes chart-draw-line {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .chart-bar { transform-box: fill-box; transform-origin: bottom; }
+  .chart-bar-muted { fill: var(--c-graphite); }
+  .chart-bar-signal { fill: var(--c-signal); }
+  .js .chart-bar[data-animate] {
+    transform: scaleY(0);
+    animation: chart-draw-bar .9s ease-out forwards;
+  }
+  @keyframes chart-draw-bar {
+    to { transform: scaleY(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .chart-line[data-animate] { stroke-dashoffset: 0; animation: none; }
+    .js .chart-bar[data-animate] { transform: scaleY(1); animation: none; }
+  }
+
+  .chart-axis { stroke: var(--c-line); stroke-width: 1; }
+  .chart-label { fill: var(--c-ink); font-size: 13px; }
+  .chart-label-muted { fill: var(--c-graphite); font-size: 13px; }
+  .chart-label-dot { fill: var(--c-signal); }
+  .chart-label-muted-dot { fill: var(--c-graphite); }
 }
 
 @layer utilities {
