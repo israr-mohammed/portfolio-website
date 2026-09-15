@@ -474,6 +474,47 @@
   }
   .project-beyond > h3 { margin-block-end: var(--space-m); }
   .project-beyond .project-block { padding-block-start: 0; border-block-start: 0; }
+
+  /* Case studies (S8): shared by business-360 and sukoon. */
+  .case-header h1 { margin-block-end: var(--space-s); }
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-l);
+  }
+  @media (width >= 64em) {
+    .case-grid {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+  }
+  .case-section h2 { margin-block-end: var(--space-m); }
+
+  /* Feature lists, same dash-marker treatment as .timeline-bullets */
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    max-width: 68ch;
+  }
+  .feature-list li { padding-inline-start: var(--space-s); position: relative; }
+  .feature-list li::before {
+    content: "-";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--c-graphite);
+  }
+
+  /* Dashboard walkthrough grid, same pattern as .impact-grid */
+  .walkthrough-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  @media (width >= 64em) {
+    .walkthrough-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
+  }
 }
 
 @layer utilities {

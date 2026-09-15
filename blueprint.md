@@ -170,10 +170,10 @@ Databricks and Advanced Excel.
 
 | Project | Stack (from resume) | Links | Site treatment |
 |---|---|---|---|
-| Business 360 Dashboard | Power BI, MySQL, Power Query, DAX, Excel | TODO(owner): live dashboard URL | Full case study page (V1) |
+| Business 360 Dashboard | Power BI, MySQL, Power Query, DAX, Excel | None verified to exist (checked S7 and S8); TODO(owner) if one is ever hosted | Full case study page (V1) — shipped S8 |
 | IPL 2024 Analytics (Sports Magazine Project) | Power BI, Power Query, DAX | TODO(owner): live dashboard URL | Summary block + screenshot |
 | Beverage Market Analysis | SQL, Power BI, Power Query, DAX | TODO(owner): live dashboard URL | Summary block + screenshot |
-| Sukoon | Flask, Jinja2, PostgreSQL (psycopg2, raw SQL), HTML/CSS/JS, pytest, Supabase, Render, PWA | TODO(owner): repository public or private | Full case study page (V1) |
+| Sukoon | Flask, Jinja2, PostgreSQL (psycopg2, raw SQL), HTML/CSS/JS, pytest, gunicorn, Supabase, Render (planned, not yet deployed — S8), PWA | Private — no public repository or live link (owner decision, D29) | Full case study page (V1) — shipped S8 |
 
 **Verified project summaries (S7; source: Israr's own Codebasics learner portfolio at
 codebasics.io/portfolio/ISRAR-MOHAMMED, rewritten for tone and to remove bootcamp-template
@@ -194,12 +194,16 @@ phrasing — no facts added beyond what that page states):**
   consumer survey for an energy-drink market-entry brief, turning survey results into
   marketing insight."
 
-**Screenshot status (S7):** one screenshot per dashboard project has been sourced from
-that same portfolio page, confirmed by the owner as Israr's own submitted work,
-metadata-stripped and re-encoded as WebP, and is live on the homepage:
-- Business 360: the Finance view (`site/assets/img/projects/business-360/finance-view.webp`).
-  Only Finance and Sales have a source screenshot; Marketing, Supply Chain and Executive
-  have none yet — needed for S8's full dashboard walkthrough.
+**Screenshot status (S7, updated S8):** one screenshot per dashboard project has been
+sourced from that same portfolio page, confirmed by the owner as Israr's own submitted
+work, metadata-stripped and re-encoded as WebP, and is live on the homepage:
+- Business 360: the Finance view (`site/assets/img/projects/business-360/finance-view.webp`,
+  unchanged since S7, reused as-is on the case-study page for consistency). S8 added four
+  more, captured directly from Power BI Desktop, cropped to the report canvas and
+  re-encoded as WebP: `sales-view.webp`, `marketing-view.webp`, `supply-chain-view.webp`,
+  `executive-view.webp`, plus `model-view.webp` for the data-model section. All five
+  content-matched to their actual report page by exact on-screen text, not by icon
+  position.
 - IPL 2024: a report overview slide (`site/assets/img/projects/ipl-2024/overview.webp`).
   Caveat: both source images for this project are cover/navigation slides, not
   screenshots of the interactive report canvas — a real in-report capture would be
@@ -209,32 +213,31 @@ metadata-stripped and re-encoded as WebP, and is live on the homepage:
   IPL 2024. (The source portfolio's other image for this project is a generic
   third-party slide-template graphic with its own attribution and was deliberately not
   used.)
-- Sukoon: no screenshot exists yet; needs a fresh demo-data capture from the running app
-  (§5.4).
+- Sukoon: still no screenshot as of S8 — the schema's `person` CHECK columns hold real
+  family first names, so a capture needs a deliberately safe state. Remains open (§12
+  item 3); the case study ships with this section screenshot-free rather than with an
+  invented or unsafe image.
 - No live-dashboard URL and no project-specific GitHub repo link were found for any of
   the three dashboard projects, even on the Codebasics page itself (checked directly in
-  its HTML) — these remain genuinely open, not just unwritten.
+  its HTML), and Business 360's live-dashboard question was checked again directly
+  against the PBIX in S8 with the same result — these remain genuinely open, not just
+  unwritten.
 
-**TODO(owner) for each dashboard project, still open:**
-- The dataset: source, tables, rough size.
-- Data model: tables and relationships.
-- 3 to 5 key DAX measures or transformations.
-- 3 to 5 findings.
-- Additional view screenshots beyond the one now sourced (see above).
-- Where the live version is hosted.
+**TODO(owner) for Business 360, S7 list — resolved in S8:** the dataset/data model
+(§4.2/§5.3, shown via the real Model-view screenshot rather than an invented diagram —
+D27), 5 key DAX measures (D28), the remaining view screenshots (Marketing, Supply Chain,
+Executive — D26), and "findings" reframed as "Dashboard capabilities" per D25 rather than
+supplied as business findings. Still open: where a live version would be hosted (none
+exists to link).
 
-**TODO(owner) for Sukoon, every item verified from the code:**
-- Purpose and users.
-- Architecture: where each part runs.
-- Database design.
-- How authentication, hashing, CSRF, sessions and private media are handled.
-- What pytest covers.
-- Deployment flow and PWA features.
-- Status and usage (only if true).
-- Lessons learned.
-- Screenshots with demo data only.
-- Honest disclosure that Claude (AI) was used to help build Sukoon (owner confirmed this in S1) — state it
-  plainly in "how it's built" and/or "lessons learned", rather than implying the code is unassisted work.
+**TODO(owner) for Sukoon, S1 list — status after S8:** purpose/users, architecture,
+database design, auth/hashing/CSRF/session handling, pytest coverage, deployment
+flow/PWA features, and status wording are all verified from the code and published. The
+AI disclosure (D20) is worded and published (D30). Still open, left as explicit
+`TODO(owner)` markers on the page itself rather than invented: confirmation of the
+feature selection shown in "What it does" (D31), the reasoning/trade-offs behind each
+engineering decision, and genuine first-person lessons learned. Screenshots remain
+unresolved (see above).
 
 Note: the three dashboard projects come from well-known bootcamp challenges, so many candidates show the same ones.
 What differentiates Israr's versions is the write-up: the questions asked, the modelling choices, and the insights.
@@ -436,6 +439,13 @@ Experience (timeline, text column) | Projects (summary left, screenshot right)
 
 ### 5.3 Case study template: dashboard project
 
+**Superseded for Business 360 by D32 (S8):** the owner redirected both case studies
+toward a short, recruiter-facing portfolio format rather than this long-form template.
+Business 360's shipped page keeps only items 1, 2 (trimmed), 7 (screenshots, no caption
+prose) and one short paragraph covering 3/4/6 in a sentence each; items 5 (model
+diagram), 8 (as a "findings" framing) and 9 were dropped from the page. The template
+below is kept for reference/history, not as the current build target.
+
 1. Title and a one-paragraph summary.
 2. Spec sheet: role, type (for example "bootcamp challenge" or "personal project"), tools, links.
 3. **The question:** the business problem and who it is for.
@@ -448,6 +458,11 @@ Experience (timeline, text column) | Projects (summary left, screenshot right)
 10. Links.
 
 ### 5.4 Case study template: Sukoon
+
+**Superseded by D32 (S8):** same redirect as §5.3. Sukoon's shipped page keeps items 1
+(trimmed spec sheet), 2 (folded into the summary), 3 (a short feature list, no
+screenshots — none exist yet) and one sentence covering 6/7; items 4 (architecture SVG),
+5 (decision records) and 8 were dropped from the page. Kept for reference/history.
 
 1. Summary and spec sheet: role, timeline, status, stack, links.
 2. The problem.
@@ -617,13 +632,22 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
   - Done when: the homepage section matches §5.2 item 6, screenshots are AVIF/WebP with
     dimensions and metadata stripped, and every fact traces to blueprint §3.7.
 
-- [ ] **S8: Business 360 and Sukoon case studies**
-  - Scope: `/projects/business-360/` using the §5.3 template (star-schema SVG, DAX
-    measures, findings, full dashboard walkthrough) once that data is available;
-    `/projects/sukoon/` using the §5.4 template; architecture SVG in vertical and
-    horizontal forms; demo-data screenshots.
+- [x] **S8: Business 360 and Sukoon case studies**
+  - Scope: `/projects/business-360/` and `/projects/sukoon/` as concise, recruiter-facing
+    portfolio pages (owner correction, S8), not long-form technical write-ups — see D32.
+    Every fact still traces to owner-verified evidence; only how much of it is shown
+    changed.
   - Done when: every technical claim is owner-verified, live-dashboard/repo links work,
     and (for Sukoon) the repository audit is done if linked.
+  - Done (S8): both pages built from owner-verified evidence (a fresh PBIX inspection,
+    owner-supplied DAX and a Model-view screenshot, and a read-only pass over the Sukoon
+    repo), then reworked to a short, screenshot-led portfolio format (D32): Business 360
+    is one summary paragraph, a compact spec sheet, one short paragraph, and all five
+    view screenshots (~134 words); Sukoon is one summary paragraph, a compact spec sheet,
+    a 4-item feature list, and one technical sentence (~168 words). No live Business 360
+    dashboard URL exists, so its Links line is omitted rather than populated; Sukoon
+    stays unlinked by owner decision (private household project). See §11 (D25, D29–D32)
+    and §12 (items 2–3, resolved below).
 
 - [ ] **S9: Resume page and public PDF**
   - Scope: `/resume/` HTML; print stylesheet; public PDF without the phone number and with metadata stripped; `/resume.pdf` header.
@@ -754,6 +778,14 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 | D22 | Final typeface: IBM Plex Sans, self-hosted as two subsetted static weights (Regular 400, SemiBold 600), 18.96 KB total | Owner compared Archivo and IBM Plex Sans side by side in the S2 specimen and chose IBM Plex Sans. Subset scoped to the exact characters found in this document's approved copy (base ASCII plus © and the em dash), produced with `fonttools`/`pyftsubset`; well under the ~90 KB / 2-file budget in §4.3. |
 | D23 | `font-variant-numeric: tabular-nums` is not used anywhere in chart or table styles | IBM Plex Sans exposes no `tnum` (tabular figures) OpenType feature — confirmed in S2 via `fontTools` feature inspection rather than assumed. Declaring the property would silently no-op; §4.3 flagged this as a check-in-S2 item. |
 | D24 | §4.2 color tokens verified against WCAG 2.2 AA in both themes with no value changes needed | Computed with a rerunnable contrast script in S2 (see §4.2 for the ratios). `--c-line` stays exempt: restricted to rules/axes/strokes, never text or a required UI boundary. |
+| D25 | Business 360 is presented as an instructor-led Codebasics bootcamp project on a supplied AtliQ scenario and dummy data, never as an EXL/client engagement; its "Dashboard capabilities" section describes report capabilities, not business findings | Owner correction, S8: a bootcamp project with dummy data must not be framed as if real business insights were personally discovered. Overrides the original §5.3 template's "Findings" step for this project. |
+| D26 | Business 360's real, current scope is five implemented analytical views (Finance, Sales, Marketing, Supply Chain, Executive), plus Home (navigation hub), Info and Support (help pages), and two minor supporting pages (Sales Trend, Market share) that stay out of the case-study narrative | Verified twice from the actual PBIX in S8: the January copy only had Finance and Sales built; the current, actively-worked copy (Downloads, saved during S8) has all five, confirmed by matching each page's own textbox titles against screenshots, not by icon position. Supersedes any earlier "two views" framing. |
+| D27 | *(superseded by D32)* Business 360's data-model section used the real, cropped Power BI Model-view screenshot instead of a hand-drawn star-schema SVG | Owner-supplied evidence in S8 showed several fact/supporting tables sharing dimensions (not a single-fact star schema), and individual relationship cardinalities weren't reliably readable at screenshot resolution — the reasoning stands as a fact, but the screenshot itself was cut from the shipped page by D32 (recruiter-facing pages don't need the model view). |
+| D28 | *(superseded by D32)* Business 360's five DAX measures were shown on-page as verbatim code blocks with a note on what each demonstrates | The formulas remain owner-verified evidence (recorded in this session's history) but D32 removed the code blocks from the shipped page in favor of one short sentence — a recruiter-facing page isn't the place for DAX literacy. |
+| D29 | Sukoon carries no repository link and no live link on its case-study page — a deliberate decision, not an open TODO | Owner confirmed in S8 the GitHub repo (`israr-mohammed/Sukoon`, independently verified private) and the app itself stay unlinked: it's a private household project. Supersedes the §3.7 "TODO(owner): repository public or private" line. |
+| D30 | Sukoon's AI-assistance disclosure uses the owner's exact wording: "Built with Claude as an AI pair-programming assistant; I defined the features, reviewed and tested the implementation, and iterated on the application." | Answers D20's open wording question. Kept visible on the page (folded into the spec-sheet "Role" field after D32's rework, rather than its own section). |
+| D31 | Sukoon's "What it does" section shows 4 generic, non-family-specific features (tasks/habits, shopping list, quotes, cloud-usage/settings), chosen to avoid surfacing the app's more personal feature areas (memories, trips, mood tracking, "our space") even generically | Editorial choice in S8, flagged for owner review rather than assumed final: the database schema's `person` CHECK columns hold real family first names, so the feature *selection* itself was kept to the more neutral/utility side as a privacy precaution, pending the owner's confirmation (§12 item 3). Unchanged by D32's rework. |
+| D32 | Both case studies rebuilt as short, recruiter-facing portfolio pages instead of long-form technical write-ups: Business 360 dropped its DAX code blocks, full capability inventory, data-model screenshot/discussion and "what's next" section, keeping one summary, a compact spec sheet, one short paragraph and all five view screenshots (~134 words); Sukoon dropped its architecture SVG, five engineering-decision records, detailed security/testing inventory and lessons section, keeping one summary, a compact spec sheet, a 4-item feature list and one technical sentence (~168 words) | Owner correction, S8: the site is a recruiter-facing portfolio, not a technical journal or documentation. The underlying verified evidence (DAX formulas, Model-view screenshot, architecture, security controls, decision rationale) isn't deleted from the record (see D26–D31 and this session's history) — only what appears on the public page changed. |
 
 ---
 
@@ -764,12 +796,19 @@ email, GitHub URL, Naukri (not linked), photo, career-break wording, notice peri
 See §11 (D11–D21) for each decision and its reasoning. Remaining, still blocking specs as noted:
 
 1. Live dashboard URLs for all three projects, and where each is hosted. Not found even on the
-   owner's Codebasics portfolio page (checked directly, S7). No longer blocks S7 (the homepage
-   ships without these links); blocks S8's project-link acceptance check.
-2. Business 360 details for the case study (§3.7 list): dataset, data model, DAX measures, findings,
-   and the remaining view screenshots (Marketing, Supply Chain, Executive). The business question and
-   one Finance-view screenshot were resolved in S7 from the owner's Codebasics portfolio. Blocks S8.
+   owner's Codebasics portfolio page (checked directly, S7), and still not found for Business 360
+   after the full S8 verification pass. No longer blocks S7 or S8 (both project's case-study/home
+   sections ship without these links; Business 360's Links section is omitted rather than populated).
+2. ~~Business 360 details for the case study.~~ Resolved in S8: real page list, five implemented
+   views, five owner-supplied DAX formulas, a real Model-view screenshot, and five view screenshots
+   (Finance, Sales, Marketing, Supply Chain, Executive) verified and published. See D25–D28.
 3. Sukoon verified facts, repository visibility and demo-data screenshots (§3.7 list), including how the
-   AI-assistance disclosure (D20) is worded. Blocks S8.
+   AI-assistance disclosure (D20) is worded. Mostly resolved in S8: stack/architecture/security/testing
+   facts verified from the repo, repo confirmed private with no link (D29), and AI disclosure wording
+   set (D30). Still open: owner confirmation of the feature selection for "What it does" (D31), the
+   reasoning/trade-offs behind the engineering-decisions section (kept factual-only, no invented "why"),
+   and genuine first-person "Lessons and what's next" content — none of these are invented placeholders,
+   they're left as explicit `TODO(owner)` markers on the page itself. No longer blocks S8's build (the
+   page is live with what's verified); these three items remain open follow-ups.
 4. Certification verification links and dates, IBM and Codebasics (§3.6). Blocks S6.
 5. Custom domain: yes or no, and preferred name (deferred per D17; revisit at S13, not blocking).

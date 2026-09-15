@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sukoon | Israr Mohammed</title>
+<title>Sukoon: a full-stack case study | Israr Mohammed</title>
 <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-subset.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css">
+<script defer src="/assets/js/main.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -21,10 +22,49 @@
 </nav>
 </header>
 <main id="main">
-<div class="container section">
+
+<section class="case-header container section">
+<div class="case-grid">
+<div class="case-intro">
 <h1>Sukoon</h1>
-<p class="prose">This case study is in progress.</p>
+<p class="prose">A private Flask application I built for my own household: a shared organizer for the small recurring things — tasks, shopping, a few lightweight trackers — with a Postgres backend and an installable PWA shell. It's my "beyond analytics" project: a chance to build and ship a full-stack app, not just model and report on data.</p>
 </div>
+<dl class="hero-facts">
+<div class="fact">
+<dt>Role</dt>
+<dd>Built with Claude as an AI pair-programming assistant; I defined the features, reviewed and tested the implementation, and iterated on the application</dd>
+</div>
+<div class="fact">
+<dt>Status</dt>
+<dd>In active development, not yet deployed</dd>
+</div>
+<div class="fact">
+<dt>Stack</dt>
+<dd>Flask, PostgreSQL, pytest, Supabase Storage, PWA</dd>
+</div>
+<div class="fact">
+<dt>Links</dt>
+<dd>Private project — no public repository or live link</dd>
+</div>
+</dl>
+</div>
+</section>
+
+<section class="case-section container section" id="features">
+<h2>What it does</h2>
+<ul class="feature-list">
+<li><strong>Tasks and habits</strong> — a shared list, tracked per person and per period.</li>
+<li><strong>Shopping list</strong> — a running list with purchase history.</li>
+<li><strong>Quotes</strong> — a small saved collection.</li>
+<li><strong>Cloud usage and settings</strong> — account and storage settings.</li>
+</ul>
+</section>
+
+<section class="case-section container section" id="built-with">
+<h2>Built with care</h2>
+<p class="prose">Parameterized SQL (no ORM), hashed credentials, CSRF protection, signed sessions and login lockout, tested with pytest across roughly 486 test functions.</p>
+</section>
+
 </main>
 <footer class="site-footer">
 <div class="container">
