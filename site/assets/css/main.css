@@ -170,9 +170,115 @@
     color: var(--c-graphite);
     font-size: var(--step--1);
   }
+
+  /* Hero (S4) */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-l);
+  }
+  .hero-primary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-m);
+  }
+  .hero-headline {
+    font-size: var(--step-2);
+    font-weight: 600;
+    color: var(--c-ink);
+  }
+
+  /* Facts list, reused as-is by the S5.3/5.4 case-study spec sheet later */
+  .hero-facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+  .hero-facts .fact { display: flex; flex-direction: column; gap: var(--space-3xs); }
+  .hero-facts dt {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--c-graphite);
+  }
+  .hero-facts dd { color: var(--c-ink); }
+
+  @media (width >= 64em) {
+    .hero-grid {
+      /* 3fr/1fr, not the original 7fr/5fr: the approved headline needs
+         627-686px (measured in IBM Plex Sans SemiBold) to hold one line
+         across the step-2 clamp's range from 64em up. 7fr/5fr gave the
+         primary column a fixed 653px from 1280px viewports upward and
+         only 512px right at the 64em/1024px boundary, so the last word
+         ("Analyst") kept getting stranded alone on a second line. 3fr/1fr
+         keeps a 30px+ margin over the needed width at every width from
+         1024px up (verified 1024/1280/1440/1920), including at the tight
+         1024px boundary itself. */
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    .hero-facts {
+      border-inline-start: 1px solid var(--c-line);
+      padding-inline-start: var(--space-l);
+    }
+  }
+
+  /* Buttons (S4) */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-m);
+    border: 1px solid var(--c-signal);
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: var(--step-0);
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--c-signal); color: var(--c-sheet); }
+  .btn-primary:hover { background: var(--c-ink); border-color: var(--c-ink); }
+  .btn-secondary { background: transparent; color: var(--c-signal); }
+  .btn-secondary:hover { background: var(--c-signal); color: var(--c-sheet); }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-m);
+  }
+  .social-links a {
+    display: inline-block;
+    padding-block: var(--space-3xs);
+    color: var(--c-ink);
+    text-decoration: none;
+  }
+  .social-links a:hover { color: var(--c-signal); text-decoration: underline; }
+
+  /* About / Contact (S4) */
+  .about h2, .contact h2 { margin-block-end: var(--space-m); }
+  .contact .actions { margin-block-start: var(--space-m); }
 }
 
 @layer utilities {
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   /* Placed in the last layer so it wins over any layout/components/base
      animation or transition rule through cascade layer order alone,
      without needing !important (CLAUDE.md: no !important). */
