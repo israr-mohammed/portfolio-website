@@ -415,6 +415,65 @@
   @media (width >= 64em) {
     .education-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
   }
+
+  /* Projects (S7) */
+  .projects h2 { margin-block-end: var(--space-m); }
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  @media (width >= 64em) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2xl);
+    }
+  }
+  .project-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--c-line);
+  }
+  .project-body { display: flex; flex-direction: column; gap: var(--space-2xs); }
+  .project-body h3, .project-body h4 { font-size: var(--step-1); }
+  .project-figure {
+    margin: 0;
+    border: 1px solid var(--c-line);
+  }
+  .project-figure img { display: block; width: 100%; height: auto; }
+  .project-figure figcaption {
+    padding: var(--space-2xs);
+    color: var(--c-graphite);
+    font-size: var(--step--1);
+  }
+  .project-views, .project-stack { color: var(--c-graphite); font-size: var(--step--1); }
+  .project-links a { font-weight: 600; }
+
+  /* Featured project: spans the grid and, at 64em, splits into a screenshot
+     column and a text column (screenshot first, per the owner's direction
+     that visual evidence leads). */
+  .project-block--featured { grid-column: 1 / -1; }
+  .project-block--featured .project-body h3 { font-size: var(--step-2); }
+  @media (width >= 64em) {
+    .project-block--featured {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+  }
+
+  /* "Beyond analytics": Sukoon sits apart from the analytics-project grid,
+     not as a fifth peer project. */
+  .project-beyond {
+    margin-block-start: var(--space-2xl);
+    padding-block-start: var(--space-l);
+    border-block-start: 1px solid var(--c-line);
+  }
+  .project-beyond > h3 { margin-block-end: var(--space-m); }
+  .project-beyond .project-block { padding-block-start: 0; border-block-start: 0; }
 }
 
 @layer utilities {

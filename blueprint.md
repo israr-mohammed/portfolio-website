@@ -175,13 +175,52 @@ Databricks and Advanced Excel.
 | Beverage Market Analysis | SQL, Power BI, Power Query, DAX | TODO(owner): live dashboard URL | Summary block + screenshot |
 | Sukoon | Flask, Jinja2, PostgreSQL (psycopg2, raw SQL), HTML/CSS/JS, pytest, Supabase, Render, PWA | TODO(owner): repository public or private | Full case study page (V1) |
 
-**TODO(owner) for each dashboard project:**
-- The business question and who it was for.
+**Verified project summaries (S7; source: Israr's own Codebasics learner portfolio at
+codebasics.io/portfolio/ISRAR-MOHAMMED, rewritten for tone and to remove bootcamp-template
+phrasing — no facts added beyond what that page states):**
+
+- **Business 360 Dashboard.** "A Power BI dashboard built for a bootcamp challenge: a
+  computer-hardware distributor's Excel-based reporting wasn't giving the business what
+  it needed, so the brief was to replace it with one dashboard covering Finance, Sales,
+  Marketing, Supply Chain and Executive views." Per-view summaries (for the S8 case
+  study): Finance — revenue, cost and margin at a glance. Sales — which products and
+  customers are performing best. Marketing — a view into what's working across
+  marketing activity. Supply chain — whether stock levels can meet demand. Executive —
+  a cross-view summary for leadership.
+- **IPL 2024 Analytics.** "A Power BI report built for a sports-magazine bootcamp
+  brief: turning three seasons of IPL data into batting and bowling leaderboards, team
+  form, and playoff and winner predictions."
+- **Beverage Market Analysis.** "A Power BI analysis of a 10-city, 10,000-respondent
+  consumer survey for an energy-drink market-entry brief, turning survey results into
+  marketing insight."
+
+**Screenshot status (S7):** one screenshot per dashboard project has been sourced from
+that same portfolio page, confirmed by the owner as Israr's own submitted work,
+metadata-stripped and re-encoded as WebP, and is live on the homepage:
+- Business 360: the Finance view (`site/assets/img/projects/business-360/finance-view.webp`).
+  Only Finance and Sales have a source screenshot; Marketing, Supply Chain and Executive
+  have none yet — needed for S8's full dashboard walkthrough.
+- IPL 2024: a report overview slide (`site/assets/img/projects/ipl-2024/overview.webp`).
+  Caveat: both source images for this project are cover/navigation slides, not
+  screenshots of the interactive report canvas — a real in-report capture would be
+  stronger evidence if one can be taken later.
+- Beverage Market: an analysis-themes overview slide
+  (`site/assets/img/projects/beverage-market/insights-overview.webp`). Same caveat as
+  IPL 2024. (The source portfolio's other image for this project is a generic
+  third-party slide-template graphic with its own attribution and was deliberately not
+  used.)
+- Sukoon: no screenshot exists yet; needs a fresh demo-data capture from the running app
+  (§5.4).
+- No live-dashboard URL and no project-specific GitHub repo link were found for any of
+  the three dashboard projects, even on the Codebasics page itself (checked directly in
+  its HTML) — these remain genuinely open, not just unwritten.
+
+**TODO(owner) for each dashboard project, still open:**
 - The dataset: source, tables, rough size.
 - Data model: tables and relationships.
 - 3 to 5 key DAX measures or transformations.
 - 3 to 5 findings.
-- Screenshots of each main view at full resolution.
+- Additional view screenshots beyond the one now sourced (see above).
 - Where the live version is hosted.
 
 **TODO(owner) for Sukoon, every item verified from the code:**
@@ -569,13 +608,22 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
   - Scope: timeline, skill groups with "where used" links, education and certifications.
   - Done when: every line matches §3 exactly, and the timeline reads well on mobile.
 
-- [ ] **S7: Projects section and Business 360 case study**
-  - Scope: project blocks on home (including the Sukoon teaser); `/projects/business-360/` using the §5.3 template; optimized screenshots; star-schema SVG.
-  - Done when: images are AVIF/WebP with dimensions, the live link opens externally, and the content is owner-verified.
+- [ ] **S7: Projects section on home**
+  - Scope: project blocks on home for Business 360 (featured), IPL 2024 and Beverage
+    Market, plus the Sukoon teaser under "Beyond analytics"; one sourced, verified
+    screenshot per dashboard project. The `/projects/business-360/` case study itself is
+    deferred to S8 alongside Sukoon's, once the remaining dataset/model/measures/
+    findings facts are available.
+  - Done when: the homepage section matches §5.2 item 6, screenshots are AVIF/WebP with
+    dimensions and metadata stripped, and every fact traces to blueprint §3.7.
 
-- [ ] **S8: Sukoon case study**
-  - Scope: `/projects/sukoon/` using the §5.4 template; architecture SVG in vertical and horizontal forms; demo-data screenshots.
-  - Done when: every technical claim is owner-verified and the repository audit is done (if linked).
+- [ ] **S8: Business 360 and Sukoon case studies**
+  - Scope: `/projects/business-360/` using the §5.3 template (star-schema SVG, DAX
+    measures, findings, full dashboard walkthrough) once that data is available;
+    `/projects/sukoon/` using the §5.4 template; architecture SVG in vertical and
+    horizontal forms; demo-data screenshots.
+  - Done when: every technical claim is owner-verified, live-dashboard/repo links work,
+    and (for Sukoon) the repository audit is done if linked.
 
 - [ ] **S9: Resume page and public PDF**
   - Scope: `/resume/` HTML; print stylesheet; public PDF without the phone number and with metadata stripped; `/resume.pdf` header.
@@ -715,9 +763,12 @@ Resolved in S1: target roles, headline, positioning sentence, about text, engine
 email, GitHub URL, Naukri (not linked), photo, career-break wording, notice period, Sukoon skills, test devices.
 See §11 (D11–D21) for each decision and its reasoning. Remaining, still blocking specs as noted:
 
-1. Live dashboard URLs for all three projects, and where each is hosted. Blocks S7 (project summary links).
-2. Business 360 details for the case study (§3.7 list): business question, dataset, data model, DAX measures,
-   findings, screenshots. Blocks S7.
+1. Live dashboard URLs for all three projects, and where each is hosted. Not found even on the
+   owner's Codebasics portfolio page (checked directly, S7). No longer blocks S7 (the homepage
+   ships without these links); blocks S8's project-link acceptance check.
+2. Business 360 details for the case study (§3.7 list): dataset, data model, DAX measures, findings,
+   and the remaining view screenshots (Marketing, Supply Chain, Executive). The business question and
+   one Finance-view screenshot were resolved in S7 from the owner's Codebasics portfolio. Blocks S8.
 3. Sukoon verified facts, repository visibility and demo-data screenshots (§3.7 list), including how the
    AI-assistance disclosure (D20) is worded. Blocks S8.
 4. Certification verification links and dates, IBM and Codebasics (§3.6). Blocks S6.
