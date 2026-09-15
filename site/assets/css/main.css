@@ -1,0 +1,186 @@
+/* Israr Mohammed portfolio — the only stylesheet.
+   Cascade layers per CLAUDE.md. Design system approved in S2; S3 adds the
+   structural foundation (reset, tokens, base, layout, header/nav/footer). */
+
+@layer reset, tokens, base, layout, components, utilities;
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-Regular-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-SemiBold-subset.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Metric-matched fallback so the swap to the real font doesn't shift layout.
+   Values computed from IBM Plex Sans Regular's hhea/OS-2 tables (S2). No
+   size-adjust: a browser comparison found none was needed against Arial. */
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial");
+  ascent-override: 102.5%;
+  descent-override: 27.5%;
+  line-gap-override: 0%;
+}
+
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { margin: 0; }
+  img, svg { display: block; max-width: 100%; }
+  h1, h2, h3, h4, p, dl, dd { margin: 0; }
+  ul { margin: 0; padding: 0; list-style: none; }
+}
+
+@layer tokens {
+  :root {
+    /* color (blueprint §4.2), light values */
+    --c-sheet: #F4F6F5;
+    --c-ink: #1D2B45;
+    --c-graphite: #4E5A6B;
+    --c-line: #C9D1D9;
+    --c-signal: #2450C8;
+    --c-marker: #B7791F;
+
+    /* spacing (blueprint §4.4): 4/8/12/16/24/32/48/64/96, larger steps fluid */
+    --space-3xs: .25rem;
+    --space-2xs: .5rem;
+    --space-xs: .75rem;
+    --space-s: 1rem;
+    --space-m: 1.5rem;
+    --space-l: 2rem;
+    --space-xl: clamp(2.5rem, 2rem + 2vw, 3rem);
+    --space-2xl: clamp(3rem, 2.4rem + 3vw, 4rem);
+    --space-3xl: clamp(4rem, 3rem + 5vw, 6rem);
+
+    /* type scale (blueprint §4.3) */
+    --step--1: clamp(.83rem, .8rem + .15vw, .9rem);
+    --step-0: clamp(1.06rem, 1rem + .25vw, 1.13rem);
+    --step-1: clamp(1.27rem, 1.18rem + .4vw, 1.5rem);
+    --step-2: clamp(1.53rem, 1.38rem + .7vw, 2rem);
+    --step-3: clamp(1.83rem, 1.6rem + 1.1vw, 2.66rem);
+    --step-4: clamp(2.2rem, 1.85rem + 1.8vw, 3.55rem);
+
+    --font-sans: "IBM Plex Sans", "IBM Plex Sans Fallback", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+    --container-max: 80rem;
+    --gutter: clamp(1rem, 4vw, 3rem);
+  }
+
+  /* dark theme: OS preference only, per blueprint D6 (no manual toggle).
+     Values finalized and contrast-checked in S2 (§4.2), unchanged here. */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --c-sheet: #121A26;
+      --c-ink: #E6EBF2;
+      --c-graphite: #A7B1C0;
+      --c-line: #2C3A4F;
+      --c-signal: #8FB0FF;
+      --c-marker: #E3A94A;
+    }
+  }
+}
+
+@layer base {
+  body {
+    background: var(--c-sheet);
+    color: var(--c-ink);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+  h1 { font-size: var(--step-4); }
+  h2 { font-size: var(--step-3); }
+  h3 { font-size: var(--step-2); }
+  h4 { font-size: var(--step-1); }
+
+  a { color: var(--c-signal); text-underline-offset: .15em; }
+  code, pre { font-family: var(--font-mono); }
+
+  :focus-visible {
+    outline: 2px solid var(--c-signal);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer layout {
+  .container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section {
+    padding-block: var(--space-2xl);
+  }
+  .prose { max-width: 68ch; }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--space-s);
+    inset-block-start: -3rem;
+    background: var(--c-sheet);
+    color: var(--c-ink);
+    padding: var(--space-2xs) var(--space-s);
+    border: 1px solid var(--c-line);
+    transition: inset-block-start .15s ease;
+    z-index: 10;
+  }
+  .skip-link:focus-visible { inset-block-start: var(--space-s); }
+
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding-block: var(--space-m);
+    border-block-end: 1px solid var(--c-line);
+  }
+  .site-header .brand {
+    font-weight: 600;
+    font-size: var(--step-0);
+    color: var(--c-ink);
+    text-decoration: none;
+  }
+  .site-header .brand:hover { color: var(--c-signal); }
+
+  .site-nav ul { display: flex; flex-wrap: wrap; gap: var(--space-m); }
+  .site-nav a { color: var(--c-ink); text-decoration: none; }
+  .site-nav a:hover { color: var(--c-signal); text-decoration: underline; }
+
+  .site-footer {
+    padding-block: var(--space-l);
+    border-block-start: 1px solid var(--c-line);
+    color: var(--c-graphite);
+    font-size: var(--step--1);
+  }
+}
+
+@layer utilities {
+  /* Placed in the last layer so it wins over any layout/components/base
+     animation or transition rule through cascade layer order alone,
+     without needing !important (CLAUDE.md: no !important). */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms;
+      animation-iteration-count: 1;
+      transition-duration: .001ms;
+    }
+  }
+}
