@@ -342,6 +342,79 @@
   .chart-label-muted { fill: var(--c-graphite); font-size: 13px; }
   .chart-label-dot { fill: var(--c-signal); }
   .chart-label-muted-dot { fill: var(--c-graphite); }
+
+  /* Experience (S6) */
+  .experience h2 { margin-block-end: var(--space-m); }
+  .timeline {
+    display: flex;
+    flex-direction: column;
+  }
+  .timeline-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+    padding-block: var(--space-l) 0;
+    border-block-start: 1px solid var(--c-line);
+  }
+  .timeline-entry:first-child { padding-block-start: 0; border-block-start: 0; }
+  .timeline-entry h3 { font-size: var(--step-1); }
+  /* Slightly stronger hierarchy for the current role, size only: no color,
+     badge or card per blueprint §4.1/§10 (no logo walls, no stat cards). */
+  .timeline-entry--current h3 { font-size: var(--step-2); }
+  .timeline-org { font-weight: 400; color: var(--c-graphite); }
+  .timeline-meta { color: var(--c-graphite); font-size: var(--step--1); }
+  .timeline-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    max-width: 60ch;
+  }
+  .timeline-bullets li { padding-inline-start: var(--space-s); position: relative; }
+  .timeline-bullets li::before {
+    content: "-";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--c-graphite);
+  }
+  .timeline-tools { color: var(--c-graphite); font-size: var(--step--1); }
+  .timeline-entry details { max-width: 60ch; }
+  .timeline-entry summary {
+    cursor: pointer;
+    color: var(--c-signal);
+    font-size: var(--step--1);
+  }
+  .timeline-entry details ul { margin-block-start: var(--space-2xs); }
+
+  /* Skills (S6) */
+  .skills h2 { margin-block-end: var(--space-m); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-l);
+  }
+  .skill-group dt {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--c-graphite);
+    margin-block-end: var(--space-3xs);
+  }
+  .skill-used { margin-block-start: var(--space-3xs); font-size: var(--step--1); color: var(--c-graphite); }
+  @media (width >= 64em) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
+  }
+
+  /* Education and certifications (S6) */
+  .education h2 { margin-block-end: var(--space-m); }
+  .education-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-l);
+  }
+  .education-grid h3 { font-size: var(--step-1); margin-block-end: var(--space-s); }
+  @media (width >= 64em) {
+    .education-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
+  }
 }
 
 @layer utilities {
