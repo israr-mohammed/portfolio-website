@@ -1,34 +1,6 @@
-/* Israr Mohammed portfolio — the only stylesheet.
-   Cascade layers per CLAUDE.md. Design system approved in S2; S3 adds the
-   structural foundation (reset, tokens, base, layout, header/nav/footer). */
+/* Israr Mohammed portfolio — the only stylesheet. Cascade layers per CLAUDE.md. */
 
 @layer reset, tokens, base, layout, components, utilities;
-
-@font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/assets/fonts/IBMPlexSans-Regular-subset.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/assets/fonts/IBMPlexSans-SemiBold-subset.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Metric-matched fallback so the swap to the real font doesn't shift layout.
-   Values computed from IBM Plex Sans Regular's hhea/OS-2 tables (S2). No
-   size-adjust: a browser comparison found none was needed against Arial. */
-@font-face {
-  font-family: "IBM Plex Sans Fallback";
-  src: local("Arial");
-  ascent-override: 102.5%;
-  descent-override: 27.5%;
-  line-gap-override: 0%;
-}
 
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
@@ -41,29 +13,38 @@
 
 @layer tokens {
   :root {
-    /* color — redesign (see blueprint §4.2 history): light, airy sheet with
-       a blue/violet accent language, contrast re-checked against the new
-       sheet color. */
+    /* color (blueprint D40): light, airy sheet with a blue/violet/mint accent
+       language. --c-accent-*/--c-panel-tint are decorative-only (hero
+       gradient, soft panels), never used for text. */
     --c-sheet: #FAFAFE;
     --c-ink: #1B2340;
     --c-graphite: #4E5A6B;
     --c-line: #DCE0EC;
     --c-signal: #3452E0;
-    --c-marker: #B7791F;
-    /* Second accent: decorative only (hero gradient), never used for text,
-       so text-contrast guarantees above are unaffected by it. */
     --c-accent-violet: #8B6BF2;
-    --hero-gradient: linear-gradient(135deg, #EAF0FF 0%, #F1ECFF 55%, var(--c-sheet) 100%);
+    --c-accent-mint: #9EF0C7;
+    --c-panel-tint: #F3F1FD;
+    /* Footer: deliberately always-dark, independent of the --c-sheet
+       light/dark tokens, so every page gets the same contrast band under its
+       gradient hero regardless of OS theme. */
+    --c-footer-bg: #0B0E17;
+    --c-footer-ink: #F4F5FA;
+    --c-footer-muted: #AEB6C7;
+    --c-footer-line: rgb(244 245 250 / 14%);
+    /* Atmospheric hero background: overlapping radial gradients over the
+       sheet color so colors blend with no visible boundary. */
+    --hero-gradient:
+      radial-gradient(85% 85% at 15% 12%, rgb(139 107 242 / 26%) 0%, rgb(139 107 242 / 0%) 100%),
+      radial-gradient(80% 80% at 88% 6%, rgb(52 82 224 / 22%) 0%, rgb(52 82 224 / 0%) 100%),
+      radial-gradient(90% 85% at 8% 90%, rgb(158 240 199 / 28%) 0%, rgb(158 240 199 / 0%) 100%),
+      radial-gradient(95% 90% at 92% 94%, rgb(158 240 199 / 24%) 0%, rgb(158 240 199 / 0%) 100%),
+      var(--c-sheet);
 
-    /* corner radius — redesign: pill buttons/chips, rounded project imagery */
-    --radius-s: .5rem;
-    --radius-m: .75rem;
     --radius-l: 1.25rem;
+    --radius-xl: 1.75rem;
     --radius-full: 999px;
 
-    /* one soft shadow, used only on project screenshots (blueprint §4.1:
-       "one bold element" — here, the rounded project imagery) */
-    --shadow-soft: 0 1px 2px rgba(27, 35, 64, .06), 0 12px 32px rgba(27, 35, 64, .10);
+    --shadow-soft: 0 1px 2px rgba(27, 35, 64, .05), 0 16px 40px rgba(27, 35, 64, .08);
 
     /* spacing (blueprint §4.4): 4/8/12/16/24/32/48/64/96, larger steps fluid */
     --space-3xs: .25rem;
@@ -75,23 +56,25 @@
     --space-xl: clamp(2.5rem, 2rem + 2vw, 3rem);
     --space-2xl: clamp(3rem, 2.4rem + 3vw, 4rem);
     --space-3xl: clamp(4rem, 3rem + 5vw, 6rem);
+    --space-4xl: clamp(5rem, 4rem + 6vw, 8rem);
 
-    /* type scale (blueprint §4.3); step-4 widened for a bolder hero headline */
+    /* type scale (blueprint §4.3); --step-5/6 are hero/case-header display
+       sizes, well above anything else on the page. */
     --step--1: clamp(.83rem, .8rem + .15vw, .9rem);
     --step-0: clamp(1.06rem, 1rem + .25vw, 1.13rem);
     --step-1: clamp(1.27rem, 1.18rem + .4vw, 1.5rem);
     --step-2: clamp(1.53rem, 1.38rem + .7vw, 2rem);
     --step-3: clamp(1.83rem, 1.6rem + 1.1vw, 2.66rem);
     --step-4: clamp(2.3rem, 1.9rem + 2.4vw, 3.9rem);
+    --step-5: clamp(2.5rem, 1.8rem + 4.5vw, 4.5rem);
+    --step-6: clamp(2.75rem, 2rem + 4.5vw, 5rem);
 
-    --font-sans: "IBM Plex Sans", "IBM Plex Sans Fallback", sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
     --container-max: 80rem;
     --gutter: clamp(1rem, 4vw, 3rem);
   }
 
-  /* dark theme: OS preference only, per blueprint D6 (no manual toggle).
-     Redesign tokens re-verified for contrast against the dark sheet. */
+  /* Dark theme: OS preference only, per blueprint D6 (no manual toggle). */
   @media (prefers-color-scheme: dark) {
     :root {
       --c-sheet: #121A26;
@@ -99,25 +82,33 @@
       --c-graphite: #A7B1C0;
       --c-line: #2C3A4F;
       --c-signal: #8FB0FF;
-      --c-marker: #E3A94A;
       --c-accent-violet: #B7A6F7;
-      --hero-gradient: linear-gradient(135deg, #182036 0%, #201B36 55%, var(--c-sheet) 100%);
-      --shadow-soft: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px rgba(0, 0, 0, .35);
+      --c-accent-mint: #6FE3AE;
+      --c-panel-tint: #1D2438;
+      --hero-gradient:
+        radial-gradient(85% 85% at 15% 12%, rgb(183 166 247 / 16%) 0%, rgb(183 166 247 / 0%) 100%),
+        radial-gradient(80% 80% at 88% 6%, rgb(143 176 255 / 13%) 0%, rgb(143 176 255 / 0%) 100%),
+        radial-gradient(90% 85% at 8% 90%, rgb(111 227 174 / 12%) 0%, rgb(111 227 174 / 0%) 100%),
+        radial-gradient(95% 90% at 92% 94%, rgb(111 227 174 / 10%) 0%, rgb(111 227 174 / 0%) 100%),
+        var(--c-sheet);
+      --shadow-soft: 0 1px 2px rgba(0, 0, 0, .3), 0 16px 40px rgba(0, 0, 0, .35);
     }
   }
 }
 
 @layer base {
+  /* Sitewide typography: the same system monospace stack used for the
+     hero/brand mark, applied everywhere — no webfont file. */
   body {
     background: var(--c-sheet);
     color: var(--c-ink);
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: var(--step-0);
-    line-height: 1.55;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-weight: 600;
     line-height: 1.15;
   }
@@ -134,6 +125,15 @@
     outline-offset: 2px;
     border-radius: 2px;
   }
+
+  /* Smooth anchor/keyboard scroll only. CSS scroll-snap (even "proximity")
+     was tried and dropped: it pulled the first paint down to the nearest
+     snap point, hiding the header under the hero on load. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
 }
 
 @layer layout {
@@ -143,7 +143,7 @@
     padding-inline: var(--gutter);
   }
   .section {
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-3xl);
   }
   .prose { max-width: 68ch; }
 }
@@ -171,120 +171,217 @@
     padding-block: var(--space-l);
     border-block-end: 1px solid var(--c-line);
   }
-  .site-header .brand {
-    font-weight: 600;
-    font-size: var(--step-0);
-    color: var(--c-ink);
+  /* Prominent uppercase monospace personal mark, not a small nav logo.
+     Shared with the footer's brand line below. */
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: var(--step-2);
+    text-transform: uppercase;
+    letter-spacing: -.01em;
     text-decoration: none;
   }
-  .site-header .brand:hover { color: var(--c-signal); }
+  .site-header .brand:hover { opacity: .75; }
+  /* Gradient name/brand treatment: blue -> violet text-clip, reused wherever
+     the personal name/brand mark appears — never on body text or headings. */
+  .gradient-name,
+  .site-header .brand {
+    background: linear-gradient(135deg, var(--c-signal), var(--c-accent-violet));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 
-  .site-nav ul { display: flex; flex-wrap: wrap; gap: var(--space-m); }
+  .site-nav ul { display: flex; flex-wrap: wrap; gap: var(--space-l); }
   .site-nav a { display: inline-block; padding-block: var(--space-2xs); color: var(--c-ink); text-decoration: none; }
   .site-nav a:hover { color: var(--c-signal); text-decoration: underline; }
 
+  /* Sitewide black footer: deliberately always-dark, independent of the
+     page's own light/dark tokens, so it reads as one contrast band under
+     every page's gradient header. */
   .site-footer {
-    padding-block: var(--space-xl);
-    border-block-start: 1px solid var(--c-line);
-    color: var(--c-graphite);
+    padding-block: var(--space-2xl) var(--space-l);
+    background: var(--c-footer-bg);
+    color: var(--c-footer-muted);
     font-size: var(--step--1);
   }
-
-  /* Hero (S4; redesign: soft gradient panel, contained within .container
-     rather than edge-to-edge, plus rounded corners so it reads as a big
-     panel rather than a full-bleed background) */
-  .hero {
-    background: var(--hero-gradient);
-    border-radius: var(--radius-l);
-    padding-block: var(--space-2xl);
-  }
-  .hero-grid {
+  .site-footer a { color: var(--c-footer-ink); text-decoration: none; }
+  .site-footer a:hover { color: var(--c-accent-mint); text-decoration: underline; }
+  .footer-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-l);
+    gap: var(--space-2xl);
   }
-  .hero-primary {
+  @media (width >= 64em) {
+    .footer-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  }
+  .footer-about { display: flex; flex-direction: column; gap: var(--space-m); }
+  .footer-about .brand { font-size: var(--step-2); }
+  .footer-about .prose { max-width: 42ch; color: var(--c-footer-muted); }
+  .footer-socials { gap: var(--space-2xs); }
+  /* Icon-only social links: overrides .social-links' inline-block/padding
+     with a fixed circular hit target above the 24px minimum. */
+  .site-footer .footer-socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border-radius: var(--radius-full);
+    color: var(--c-footer-ink);
+    text-decoration: none;
+  }
+  .site-footer .footer-socials a:hover,
+  .site-footer .footer-socials a:focus-visible {
+    color: var(--c-accent-mint);
+    background: rgb(244 245 250 / 10%);
+  }
+  .footer-socials svg { width: 1.25rem; height: 1.25rem; }
+  .footer-links-heading {
+    margin-block-end: var(--space-s);
+    font-weight: 700;
+    font-size: var(--step--1);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--c-footer-ink);
+  }
+  .footer-links ul { display: flex; flex-direction: column; gap: var(--space-2xs); }
+  .footer-copyright {
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-l);
+    border-block-start: 1px solid var(--c-footer-line);
+    color: var(--c-footer-muted);
+  }
+
+  /* Hero/case-header: full-bleed atmospheric gradient. The gradient fades
+     into the page on a ::before that's masked out gradually, rather than an
+     overlay painted on top (which would read as a visible wash) — the lower
+     part just reveals more of the element's own plain --c-sheet background. */
+  .hero,
+  .case-header {
+    position: relative;
+    background: var(--c-sheet);
+    isolation: isolate;
+  }
+  .hero::before,
+  .case-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--hero-gradient);
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  }
+  .hero {
+    padding-block: var(--space-4xl) var(--space-3xl);
+  }
+  .hero-inner {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-m);
+    align-items: center;
+    gap: var(--space-l);
+    text-align: center;
   }
-  /* Redesign: the name (h1) stays first for heading semantics but reads as
-     a quiet intro line; the positioning statement becomes the large,
-     expressive headline the reference direction calls for. */
-  .hero h1 {
-    font-size: var(--step-1);
-    font-weight: 600;
-    color: var(--c-graphite);
-  }
+  /* Base size for case-header pages' <h1>; the homepage's own h1 gets the
+     larger .hero .hero-headline override below. */
   .hero-headline {
     font-size: var(--step-4);
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.15;
     color: var(--c-ink);
   }
+  /* Homepage hero only: the large display headline, near-black except the
+     gradient word. */
+  .hero .hero-headline {
+    max-width: 70rem;
+    font-family: var(--font-mono);
+    font-size: var(--step-6);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -.03em;
+  }
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+    padding: var(--space-3xs) var(--space-m);
+    border: 1px solid color-mix(in srgb, var(--c-signal) 25%, transparent);
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--c-accent-violet) 10%, var(--c-sheet));
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--c-signal);
+  }
+  /* Only "decisions" gets the gradient treatment. */
+  .hero-accent {
+    background: linear-gradient(135deg, var(--c-signal), var(--c-accent-violet));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-lead {
+    max-width: 42rem;
+    margin-block-start: var(--space-s);
+    font-size: var(--step-1);
+    color: var(--c-graphite);
+  }
+  .hero-actions { justify-content: center; }
+  /* Labeled pills, same language as .btn-secondary, so LinkedIn/GitHub read
+     as a deliberate row instead of easy-to-miss inline text. */
+  .hero-socials { justify-content: center; }
+  .hero-socials a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-m);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-full);
+    background: var(--c-sheet);
+    font-weight: 600;
+  }
+  .hero-socials a:hover { background: var(--c-line); text-decoration: none; }
 
-  /* Facts list (reused as-is by the education/certifications grid and the
-     case-study spec sheet — kept a plain list there). Inside the hero only,
-     redesign turns it into small rounded chips at narrow widths. */
+  /* Shared "fact" component: a small muted label over a value. */
+  .fact { display: flex; flex-direction: column; gap: var(--space-3xs); }
+  .fact dt {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--c-graphite);
+  }
+  /* Guards against unbroken strings (the email in .contact-list) overflowing
+     at 320px. */
+  .fact dd { color: var(--c-ink); overflow-wrap: anywhere; }
+
   .hero-facts {
     display: flex;
     flex-direction: column;
     gap: var(--space-s);
   }
-  .hero-facts .fact { display: flex; flex-direction: column; gap: var(--space-3xs); }
-  .hero-facts dt {
-    font-size: var(--step--1);
-    font-weight: 600;
-    color: var(--c-graphite);
-  }
-  .hero-facts dd { color: var(--c-ink); }
 
-  .hero .hero-facts {
-    flex-direction: row;
+  .hero-meta {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-s);
   }
-  .hero .hero-facts .fact {
+  .hero-meta .fact {
+    flex-direction: row;
+    align-items: baseline;
+    gap: .35em;
     padding: var(--space-2xs) var(--space-m);
     border: 1px solid var(--c-line);
     border-radius: var(--radius-full);
     background: var(--c-sheet);
   }
 
-  @media (width >= 64em) {
-    .hero-grid {
-      /* 3fr/1fr, not the original 7fr/5fr: the approved headline needs
-         627-686px (measured in IBM Plex Sans SemiBold) to hold one line
-         across the step-2 clamp's range from 64em up. 7fr/5fr gave the
-         primary column a fixed 653px from 1280px viewports upward and
-         only 512px right at the 64em/1024px boundary, so the last word
-         ("Analyst") kept getting stranded alone on a second line. 3fr/1fr
-         keeps a 30px+ margin over the needed width at every width from
-         1024px up (verified 1024/1280/1440/1920), including at the tight
-         1024px boundary itself. */
-      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-      gap: var(--space-2xl);
-      align-items: start;
-    }
-    .hero-facts {
-      border-inline-start: 1px solid var(--c-line);
-      padding-inline-start: var(--space-l);
-    }
-    /* Chips are a narrow-viewport-only treatment inside the hero; at 64em+
-       it rejoins the plain divided list every other .hero-facts use gets. */
-    .hero .hero-facts {
-      flex-direction: column;
-      flex-wrap: nowrap;
-    }
-    .hero .hero-facts .fact {
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: none;
-    }
+  @media (width >= 40em) {
+    .hero-actions { flex-wrap: nowrap; }
   }
 
-  /* Buttons (S4; redesign: pill shape) */
   .actions {
     display: flex;
     flex-wrap: wrap;
@@ -295,18 +392,19 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.75rem;
-    padding-inline: var(--space-l);
-    border: 1px solid var(--c-signal);
+    min-height: 3rem;
+    padding-inline: var(--space-xl);
+    border: 1px solid transparent;
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: var(--step-0);
     text-decoration: none;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
   }
-  .btn-primary { background: var(--c-signal); color: var(--c-sheet); }
+  .btn-primary { background: var(--c-signal); border-color: var(--c-signal); color: var(--c-sheet); }
   .btn-primary:hover { background: var(--c-ink); border-color: var(--c-ink); }
-  .btn-secondary { background: transparent; color: var(--c-signal); }
-  .btn-secondary:hover { background: var(--c-signal); color: var(--c-sheet); }
+  .btn-secondary { background: var(--c-sheet); border-color: var(--c-line); color: var(--c-ink); }
+  .btn-secondary:hover { background: var(--c-line); }
 
   .social-links {
     display: flex;
@@ -321,12 +419,31 @@
   }
   .social-links a:hover { color: var(--c-signal); text-decoration: underline; }
 
-  /* About / Contact (S4) */
   .about h2, .contact h2 { margin-block-end: var(--space-m); }
-  .contact .actions { margin-block-start: var(--space-m); }
+  .about .prose { font-size: var(--step-1); }
 
-  /* Experience (S6; redesign: a thin accent rule + dot marker replaces the
-     plain top-border divider, for a cleaner modern hierarchy) */
+  /* Contact: soft tinted panel. Phone/email approved for public display,
+     blueprint D40. */
+  .contact-panel {
+    padding: var(--space-l) var(--space-xl);
+    border-radius: var(--radius-l);
+    background: var(--c-panel-tint);
+  }
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    margin-block: var(--space-m);
+  }
+  .contact-list dd {
+    font-size: var(--step-2);
+    font-weight: 600;
+  }
+  .contact-list dd a { color: var(--c-ink); text-decoration: none; }
+  .contact-list dd a:hover { color: var(--c-signal); text-decoration: underline; }
+  .contact .actions { margin-block-start: var(--space-m); }
+  .contact .social-links { margin-block-start: var(--space-m); }
+
   .experience h2 { margin-block-end: var(--space-m); }
   .timeline {
     display: flex;
@@ -337,8 +454,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-2xs);
-    padding-block: var(--space-l) 0;
+    gap: var(--space-xs);
+    padding-block: var(--space-xl) 0;
     padding-inline-start: var(--space-l);
     border-inline-start: 2px solid var(--c-line);
   }
@@ -346,7 +463,7 @@
     content: "";
     position: absolute;
     inset-inline-start: -.375rem;
-    inset-block-start: var(--space-l);
+    inset-block-start: var(--space-xl);
     width: .75rem;
     height: .75rem;
     border-radius: var(--radius-full);
@@ -356,8 +473,8 @@
   .timeline-entry:first-child::before { inset-block-start: .1875rem; }
   .timeline-entry:last-child { border-inline-start-color: transparent; }
   .timeline-entry h3 { font-size: var(--step-1); }
-  /* Slightly stronger hierarchy for the current role, size only: no color,
-     badge or card per blueprint §4.1/§10 (no logo walls, no stat cards). */
+  /* Current role: size only, no color/badge/card (no logo walls, no stat
+     cards). */
   .timeline-entry--current h3 { font-size: var(--step-2); }
   .timeline-org { font-weight: 400; color: var(--c-graphite); }
   .timeline-meta { color: var(--c-graphite); font-size: var(--step--1); }
@@ -385,32 +502,30 @@
   }
   .timeline-entry details ul { margin-block-start: var(--space-2xs); }
 
-  /* Skills (S6; redesign: each group becomes a lightly tinted, rounded block
-     for "visually clear grouped categories" — no percentage bars/ratings) */
+  /* Skills: plain grouped text, no card/box/background, no percentage
+     bars/ratings/logo walls. */
   .skills h2 { margin-block-end: var(--space-m); }
   .skills-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-m);
+    gap: var(--space-l);
   }
   .skill-group {
-    padding: var(--space-m);
-    border-radius: var(--radius-m);
-    background: color-mix(in srgb, var(--c-signal) 6%, var(--c-sheet));
-    border: 1px solid var(--c-line);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
   }
   .skill-group dt {
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     font-weight: 600;
-    color: var(--c-graphite);
-    margin-block-end: var(--space-3xs);
+    color: var(--c-ink);
   }
+  .skill-group dd { color: var(--c-graphite); }
   .skill-used { margin-block-start: var(--space-3xs); font-size: var(--step--1); color: var(--c-graphite); }
   @media (width >= 64em) {
     .skills-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
   }
 
-  /* Education and certifications (S6) */
   .education h2 { margin-block-end: var(--space-m); }
   .education-grid {
     display: grid;
@@ -422,7 +537,6 @@
     .education-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
   }
 
-  /* Projects (S7) */
   .projects h2 { margin-block-end: var(--space-m); }
   .project-grid {
     display: grid;
@@ -444,23 +558,27 @@
   }
   .project-body { display: flex; flex-direction: column; gap: var(--space-2xs); }
   .project-body h3, .project-body h4 { font-size: var(--step-1); }
-  /* Redesign: rounded, softly shadowed imagery — the one visually rich
-     element in this section, per the owner's brief; every other block on
-     the page stays flat/calm. */
   .project-figure {
     margin: 0;
-    border-radius: var(--radius-l);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-soft);
     overflow: hidden;
   }
-  .project-figure img { display: block; width: 100%; height: auto; }
+  .project-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .3s ease;
+  }
+  .project-figure:hover img { transform: scale(1.02); }
   .project-figure figcaption {
     padding: var(--space-2xs) var(--space-s);
     color: var(--c-graphite);
     font-size: var(--step--1);
   }
   .project-views, .project-stack { color: var(--c-graphite); font-size: var(--step--1); }
-  /* Case study / live-dashboard links read as small pill buttons */
+  /* Case study / live-dashboard links read as small pill buttons, matching
+     the button language used elsewhere. */
   .project-links {
     display: flex;
     flex-wrap: wrap;
@@ -472,20 +590,19 @@
     align-items: center;
     min-height: 2.5rem;
     padding-inline: var(--space-m);
-    border: 1px solid var(--c-signal);
+    border: 1px solid var(--c-line);
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: var(--step--1);
     text-decoration: none;
-    color: var(--c-signal);
+    color: var(--c-ink);
   }
-  .project-links a:hover { background: var(--c-signal); color: var(--c-sheet); }
-  .project-links a:first-child { background: var(--c-signal); color: var(--c-sheet); }
+  .project-links a:hover { background: var(--c-line); }
+  .project-links a:first-child { background: var(--c-signal); border-color: var(--c-signal); color: var(--c-sheet); }
   .project-links a:first-child:hover { background: var(--c-ink); border-color: var(--c-ink); }
 
-  /* Featured project: spans the grid and, at 64em, splits into a screenshot
-     column and a text column (screenshot first, per the owner's direction
-     that visual evidence leads). */
+  /* Featured project spans the grid and, at 64em, splits into screenshot +
+     text columns (screenshot first). */
   .project-block--featured { grid-column: 1 / -1; }
   .project-block--featured .project-body h3 { font-size: var(--step-2); }
   @media (width >= 64em) {
@@ -495,20 +612,39 @@
       gap: var(--space-2xl);
       align-items: start;
     }
+    .project-grid > .project-block:not(.project-block--featured):nth-child(even) {
+      margin-block-start: var(--space-xl);
+    }
   }
 
-  /* "Beyond analytics": Sukoon sits apart from the analytics-project grid,
-     not as a fifth peer project. */
+  /* "Beyond analytics": Sukoon sits apart from the project grid as its own
+     tinted panel, not a fifth peer project. */
   .project-beyond {
-    margin-block-start: var(--space-2xl);
-    padding-block-start: var(--space-l);
-    border-block-start: 1px solid var(--c-line);
+    margin-block-start: var(--space-3xl);
+    padding: var(--space-l);
+    border-radius: var(--radius-l);
+    background: var(--c-panel-tint);
   }
   .project-beyond > h3 { margin-block-end: var(--space-m); }
   .project-beyond .project-block { padding-block-start: 0; border-block-start: 0; }
 
-  /* Case studies (S8): shared by business-360 and sukoon. */
-  .case-header h1 { margin-block-end: var(--space-s); }
+  /* Case studies: shared by business-360, sukoon, resume and every
+     top-level page's header. The gradient background (and fade mask) is
+     set on the shared .hero, .case-header rule above. */
+  .case-header h1 {
+    margin-block-end: var(--space-s);
+    font-size: var(--step-5);
+    font-weight: 700;
+  }
+  /* Supporting line under a case-header heading: deliberately smaller and
+     lighter than the heading above it. */
+  .page-lead {
+    margin-block-start: var(--space-s);
+    max-width: 42rem;
+    font-size: var(--step-1);
+    font-weight: 400;
+    color: var(--c-graphite);
+  }
   .case-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -523,7 +659,17 @@
   }
   .case-section h2 { margin-block-end: var(--space-m); }
 
-  /* Feature lists, same dash-marker treatment as .timeline-bullets */
+  /* Resume-only section polish: scoped to .resume-section so the standalone
+     Experience/Skills pages stay untouched. */
+  .resume-section + .resume-section {
+    padding-block-start: var(--space-2xl);
+    border-block-start: 1px solid var(--c-line);
+  }
+  .resume-section > h2 {
+    padding-inline-start: var(--space-s);
+    border-inline-start: 3px solid var(--c-signal);
+  }
+
   .feature-list {
     display: flex;
     flex-direction: column;
@@ -538,7 +684,6 @@
     color: var(--c-graphite);
   }
 
-  /* Dashboard walkthrough grid, same pattern as .impact-grid */
   .walkthrough-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -562,9 +707,8 @@
     border: 0;
   }
 
-  /* Placed in the last layer so it wins over any layout/components/base
-     animation or transition rule through cascade layer order alone,
-     without needing !important (CLAUDE.md: no !important). */
+  /* Last layer so this wins over any earlier animation/transition rule
+     through cascade order alone, without !important. */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: .001ms;
@@ -573,10 +717,8 @@
     }
   }
 
-  /* Print (S9): applies sitewide since header/footer/actions markup is
-     shared across pages, not resume-only. Hides navigation and on-page
-     actions, and prints link destinations as visible text (blueprint
-     §5.5), since a printed/PDF page can't be clicked. */
+  /* Print (S9): hides navigation/actions, prints link destinations as
+     visible text since a printed/PDF page can't be clicked. */
   @media print {
     @page { size: A4; margin: 10mm; }
     .site-header, .site-footer, .skip-link, .actions {
@@ -588,6 +730,14 @@
     h1 { font-size: var(--step-2); }
     h2 { font-size: var(--step-0); margin-block-end: var(--space-3xs); }
     .case-grid, .experience .timeline, .skills-grid, .education-grid, .project-grid { gap: var(--space-3xs); }
+    .resume-section + .resume-section {
+      padding-block-start: var(--space-3xs);
+      border-block-start: 0;
+    }
+    .resume-section > h2 {
+      padding-inline-start: 0;
+      border-inline-start: 0;
+    }
     .timeline-entry {
       padding-block-start: var(--space-3xs);
       padding-inline-start: 0;
@@ -597,21 +747,39 @@
     .timeline-bullets, .feature-list { gap: var(--space-3xs); }
     .project-block { gap: var(--space-3xs); padding-block-start: var(--space-3xs); }
     .project-grid { grid-template-columns: repeat(2, 1fr); }
-    /* Redesign additions (gradient hero, pill links, tinted skill blocks)
-       don't belong on paper: revert to the plain, ink-light print treatment. */
+    /* Gradient hero, pill links and tinted panels don't belong on paper. */
     .hero {
       background: none;
       padding-block: 0;
-      border-radius: 0;
     }
-    .hero-headline { font-size: var(--step-1); }
-    .hero-facts .fact {
+    .case-header {
+      background: none;
+    }
+    .hero::before,
+    .case-header::before {
+      display: none;
+    }
+    .hero-inner { text-align: left; align-items: flex-start; }
+    .hero .hero-headline { font-size: var(--step-1); max-width: none; }
+    .hero-pill {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--c-ink);
+    }
+    .hero-accent, .gradient-name {
+      background: none;
+      color: var(--c-ink);
+      -webkit-text-fill-color: var(--c-ink);
+    }
+    .hero-meta .fact {
       padding: 0;
       border: 0;
       border-radius: 0;
       background: none;
     }
     .project-figure { box-shadow: none; border-radius: 0; }
+    .project-figure:hover img { transform: none; }
     .project-links a {
       display: inline;
       min-height: auto;
@@ -621,16 +789,14 @@
       background: none;
       color: var(--c-ink);
     }
-    .skill-group {
+    .contact-panel, .project-beyond {
       padding: 0;
-      border: 0;
       border-radius: 0;
       background: none;
     }
     a[href^="http"], a[href^="/"] { overflow-wrap: anywhere; }
-    /* Power BI report links carry a long opaque token that's meaningless on
-       paper and would blow out the page count; the link itself still stays
-       clickable in the PDF's own link annotations, just not printed as text. */
+    /* Power BI links carry a long opaque token, meaningless on paper; the
+       link stays clickable via the PDF's own link annotations. */
     a[href^="http"]:not([href*="powerbi.com"])::after {
       content: " (" attr(href) ")";
     }

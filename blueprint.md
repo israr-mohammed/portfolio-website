@@ -49,7 +49,7 @@ Success means:
 |---|---|---|
 | Name | Israr Mohammed | Verified (resume) |
 | Headline | Data Analyst \| Business Intelligence Analyst | Verified (resume) |
-| Site headline | Data Analyst, Business Analyst and BI Analyst | Approved (owner, S1) |
+| Site headline | Data Analyst, Business Analyst and BI Consultant | Approved (owner, S1; wording updated to "BI Consultant" in the final polish pass, D41) |
 | Location | Gurugram, Haryana | Verified (resume) |
 | Experience | 4 years (as stated in the resume summary) | Verified (resume) |
 | Current role | Business Analyst, EXL (Apr 2025 to present) | Verified (resume) |
@@ -58,8 +58,9 @@ Success means:
 **Positioning sentence (approved by owner, S1):**
 "I turn operational data into validated datasets and Power BI dashboards that help teams find process gaps and close them."
 
-**About paragraph (approved by owner, S1; for homepage §5.2 item 3):**
-"I'm a data analyst, business analyst and BI analyst with 4 years of experience turning operational data into validated datasets and Power BI dashboards. At EXL, I support a UK utility client, working across SQL, Python, Databricks and Power BI to close process gaps and deliver ad hoc analysis within SLA. My background is in mechanical and production engineering, which shapes how I approach data: as a process to measure, model and improve. I'm based in Gurugram and looking for data analyst, business analyst and BI analyst roles."
+**About paragraph (approved by owner, S1; "BI analyst" reworded to "BI consultant" in the final
+polish pass, D41; for homepage §5.2 item 3):**
+"I'm a data analyst, business analyst and BI consultant with 4 years of experience turning operational data into validated datasets and Power BI dashboards. At EXL, I support a UK utility client, working across SQL, Python, Databricks and Power BI to close process gaps and deliver ad hoc analysis within SLA. My background is in mechanical and production engineering, which shapes how I approach data: as a process to measure, model and improve. I'm based in Gurugram and looking for data analyst, business analyst and BI consultant roles."
 
 **Core strengths, all evidenced in the resume:**
 
@@ -80,10 +81,13 @@ Success means:
 ## 3. Content inventory (source: resume, Sep 2026)
 
 Everything here is verified from the resume unless it is marked TODO or DRAFT.
-The phone number is intentionally excluded from the site and from this repository.
+**Superseded by D40:** the phone number was originally excluded from the site and this repository;
+the owner has since explicitly approved publishing it (see D40 and §3.1).
 
 ### 3.1 Identity and links
 
+- **Phone:** +91-7737136423. Approved for public display on the site (owner, D40) — overrides the
+  earlier "never publish the phone number" stance. Still never publish date of birth or home address.
 - **Email:** israr4075@gmail.com. Confirmed (owner, S1) as the address to publish.
 - **LinkedIn:** https://www.linkedin.com/in/israrmohammed
 - **GitHub:** https://github.com/israr-mohammed/. Confirmed (owner, S1).
@@ -262,7 +266,15 @@ Consider one original-dataset project after V1.
 
 ### 4.1 Concept
 
-The concept is **"the working sheet"**: a technical-drawing feel that is precise, calm, cool and chart-literate.
+**Superseded by D40 (owner-directed visual redesign):** the original "working sheet" concept below
+is kept for history. The current visual direction is a soft, airy, editorial language — an
+atmospheric multi-radial-gradient hero, large expressive typography (IBM Plex Sans only, no new
+font), generous whitespace, and visually dominant project imagery — built from the supplied
+reference screenshots (`design/reference/1.png`–`6.png`, visual language only, never their content
+or branding). The Selected-impact chart section (this concept's original "one bold element") was
+already removed from the site in S10.2, before the redesign began.
+
+The original concept was **"the working sheet"**: a technical-drawing feel that is precise, calm, cool and chart-literate.
 The site should look like it was made by someone who respects data. It shows impact the way an analyst would: small, honest charts with direct labels.
 
 - **Signature element:** small, honest SVG impact charts (§4.6). This is the one bold thing; everything around it stays quiet.
@@ -712,7 +724,8 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 - [ ] Every fact matches §3.
 - [ ] No TODOs or placeholders remain.
 - [ ] Dates are current and links work.
-- [ ] Phone number appears nowhere.
+- [ ] Published phone number matches the approved value (+91-7737136423, D40) exactly; date of birth
+  and home address still appear nowhere.
 
 ---
 
@@ -739,7 +752,8 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 - A demo link that takes 30 seconds or more to wake up.
 
 **Privacy**
-- The phone number, date of birth or address in public files.
+- Date of birth or home address in public files. (The phone number is approved for public display,
+  D40 — this no longer applies to it.)
 - PDF or image metadata.
 - Secrets in the Sukoon repository history.
 
@@ -794,6 +808,9 @@ Each spec follows the same pattern: plan, owner approval, build, acceptance chec
 | D37 | JSON-LD omits `datePublished` on both case studies' `Article` entities | No verified publish date exists anywhere in the blueprint; inventing one would violate the no-invented-facts rule. Structured data validates cleanly against schema.org's validator without it. |
 | D38 | Favicon mark is a plain "IM" monogram (Arial Bold text-equivalent) in `--c-ink` on `--c-sheet`, shipped as `favicon.svg`, `favicon.ico` (16/32/48px) and `apple-touch-icon.png` (180px) | Owner decision, S10: minimal, uses only existing design tokens, no brand redesign. Generated locally with Pillow (system Arial Bold as the render font, since the site's own WOFF2 can't be rasterized by the available tooling) — visually a placeholder monogram, not a redesigned identity system. |
 | D39 | `sitemap.xml` lists `/`, `/resume/`, `/resume.pdf`, `/projects/business-360/`, `/projects/sukoon/` only; `/404.html` and Cloudflare preview URLs are excluded | Matches the public-page list in §5.1. Preview-deployment noindexing is expected to come from Cloudflare's default `X-Robots-Tag` on `*.pages.dev` preview subdomains, per §6.6 — still needs confirming by inspecting response headers on an actual preview deploy; not yet verified as of this commit. |
+| D40 | Two owner decisions made together in an ad hoc redesign session (not a numbered spec): (1) the phone number +91-7737136423 may now be published on the site's Contact section, overriding the original "never publish the phone number" stance; (2) the site's visual direction is rebuilt from the owner-supplied reference screenshots (`design/reference/1.png`–`6.png`, a third-party template used for visual language only — its name, wording, images and branding are explicitly not carried over), replacing the §4.1 "working sheet"/technical-drawing concept with a soft, airy, editorial language: atmospheric multi-radial-gradient hero, large expressive type (IBM Plex Sans only, no new font added), generous whitespace, and visually dominant project imagery. Gradients are now allowed (scoped to the hero), where §4.1/CLAUDE.md previously avoided them. | Owner-directed correction: the prior "technical drawing"/no-gradient direction and the phone-number restriction were both explicitly and deliberately overridden by the owner in this session, not defaulted around. Recorded here per this file's own rule (§0: "add any decision made during it to §11") since this redesign isn't a formally numbered spec. Date of birth and home address remain unpublished. |
+| D41 | Final polish pass on the D40 redesign (owner, ad hoc session): the site's own positioning wording changes from "BI Analyst" to "BI Consultant" everywhere it appears as the site's self-description (hero pill, page titles/meta, homepage "Looking for" fact, About paragraph, resume tagline and summary, JSON-LD `jobTitle`, footer intro). A sitewide black footer (brand, short intro, GitHub/LinkedIn/Portfolio links, phone/email, Quick Links) is added to every page; the case-header heading and its supporting line get distinct sizes (`.case-header h1` vs. new `.page-lead`) instead of matching sizes; a blue→violet gradient text treatment (`.gradient-name`) is applied to the personal name/brand mark (site header, resume `<h1>`, footer brand); the homepage drops its "Explore" link section and gains a visible, clickable phone/email in its Contact section and a more visible LinkedIn/GitHub row. | Owner-directed wording and visual refinement, same ad hoc-session pattern as D40. Historical job titles ("Business Analyst, EXL", "Assistant Manager, TVS Credit") and the resume's own verified "Headline" row above are explicitly excluded from the wording change — only the site's own positioning language changed, not resume facts. |
+| D42 | Second polish pass on the D41 footer/gradient work (owner, ad hoc session, "final polish pass"), sitewide on all 10 pages: (1) the black footer's phone/email block is removed (phone/email stay published on the homepage Contact section, `/contact/` and the resume, per D40 — only the footer copy changed); (2) the footer's GitHub/LinkedIn/Portfolio text links become icon-only inline SVGs (same three URLs, `aria-label`s added, no icon font/CDN); (3) the footer copyright line changes from "Built with plain HTML and CSS, no trackers." to "Made with Claude Code."; (4) the hero/case-header gradient now fades into the page background through a masked pseudo-element instead of ending at a hard box edge; (5) gentle, reduced-motion-gated `scroll-behavior: smooth` and proximity `scroll-snap` (never mandatory) is added across top-level `<section>`s only; (6) `/resume/`'s Professional Summary/Experience/Skills/Education/Projects sections get a scoped `.resume-section` treatment (hairline dividers, accent-ruled headings) that the standalone Experience/Skills pages don't inherit. | Owner-directed visual refinement, same ad hoc-session pattern as D40/D41 — not S11 (Polish), whose scope is dark theme/nav-highlight/reduced-motion review, not this redesign follow-up. No content, facts, nav destinations or page architecture changed. |
 
 ---
 

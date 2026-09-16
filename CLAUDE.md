@@ -25,7 +25,9 @@ The full specification lives in `blueprint.md`. Read the relevant sections befor
 - Use content only from blueprint §3 (Content inventory). If something is missing, insert
   `<!-- TODO(owner): what is needed -->` and list every TODO in your summary.
 - Copy metrics exactly as written (e.g. "from 80% to 95%"). Don't round, inflate or combine them into new claims.
-- Never publish the phone number, date of birth or home address. City-level location only.
+- The phone number (+91-7737136423) may be published alongside the email, per the owner's explicit
+  approval (blueprint D40, redesign session). Never publish date of birth or home address. City-level
+  location only.
 - Never name EXL's client or show any employer or client data or screenshots. Say "a UK utility client".
 - Sukoon technical details must be verified by the owner before they are written. Screenshots use demo data only.
 - Text marked DRAFT in the blueprint must be flagged for owner approval in your summary.
@@ -75,16 +77,24 @@ Repo root (not published): CLAUDE.md  blueprint.md  README.md  .gitignore  desig
   and an optional current-section highlight in the nav. Anything else needs owner approval.
 
 ## Design guardrails (full system in blueprint §4)
-- Direction: "technical drawing". Precise, calm, cool palette, chart-literate, left-aligned.
-- One bold element: the small, honest SVG impact charts. Everything else stays quiet.
-- Avoid:
+- **Superseded by the owner-approved visual redesign (blueprint D40):** the original "technical
+  drawing" direction below is kept for history, not as the current target. The current direction is
+  a soft, airy, editorial visual language led by an atmospheric multi-radial-gradient hero, built from
+  the supplied references in `design/reference/1.png`–`6.png` (visual language only — never their
+  copy, branding or template structure). IBM Plex Sans stays the only typeface; no new font is added.
+- ~~Direction: "technical drawing". Precise, calm, cool palette, chart-literate, left-aligned.~~
+- ~~One bold element: the small, honest SVG impact charts. Everything else stays quiet.~~ (The
+  Selected-impact chart section was removed from the site in S10.2, before the redesign.)
+- Avoid (still current, except where D40 explicitly overrides one item):
   - Typography tells: all-caps eyebrow labels, middle-dot meta strings, arrows on every link,
     01/02 section numbers, a single colored word in a headline.
-  - Layout tells: big-number stat blocks, identical rounded shadow cards, gradients, glassmorphism.
+  - Layout tells: big-number stat blocks, identical rounded shadow cards, glassmorphism (frosted
+    blur). **Gradients are now allowed**, scoped to the approved atmospheric hero background (D40) —
+    still avoid decorative gradients elsewhere on the page.
   - Gimmicks: typing effects, custom cursors, skill % bars, logo walls.
   - Scattered motion: fade-up on every section, hover lifts.
 - Charts: honest scales (no truncated axes), direct labels, colorblind-safe colors,
-  and a visible text equivalent for every chart.
+  and a visible text equivalent for every chart — applies if charts are ever reintroduced.
 
 ## Accessibility (WCAG 2.2 AA)
 - Text contrast at least 4.5:1 (3:1 for large text and UI parts). Never rely on color alone.
