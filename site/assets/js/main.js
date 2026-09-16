@@ -1,55 +1,137 @@
 // Israr Mohammed portfolio — the only script. Progressive enhancement only.
-// S4: copy-email. S5: chart draw-on-view trigger. Loaded with defer; no
-// dependencies.
+// Loaded with defer; no dependencies.
 (function () {
   "use strict";
 
-  // Marks JS as available. Chart draw animation is scoped in CSS to .js so
-  // that with JS off (this line never runs) every chart renders fully drawn
-  // by default, per blueprint §4.7 — not an autoplay-then-settle.
-  document.documentElement.classList.add("js");
+  var root = document.documentElement;
+  var THEME_KEY = "theme";
 
-  // Impact charts draw once when first scrolled into view. Falls back to
-  // "already drawn" (handled purely by CSS/prefers-reduced-motion) when
-  // IntersectionObserver isn't available.
-  if ("IntersectionObserver" in window) {
-    var chartShapes = document.querySelectorAll(
-      ".chart-line[data-animate], .chart-bar[data-animate]"
-    );
-    var chartObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = "running";
-          chartObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    chartShapes.forEach(function (shape) {
-      shape.style.animationPlayState = "paused";
-      chartObserver.observe(shape);
-    });
-  }
+  // Runs before first paint (main.css is render-blocking) — no FOUC, no inline script.
+  try {
+    var savedTheme = localStorage.getItem(THEME_KEY);
+    root.setAttribute("data-theme", savedTheme === "light" ? "light" : "dark");
+  } catch (e) {}
+
+  // Gates the theme toggle and the assistant launcher (both hidden without JS).
+  root.classList.add("js");
 
   var status = document.getElementById("copy-status");
   var links = document.querySelectorAll("[data-copy-email]");
-  if (!links.length || !navigator.clipboard) return;
-
-  links.forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      var email = link.href.replace(/^mailto:/, "");
-      event.preventDefault();
-      navigator.clipboard.writeText(email).then(
-        function () {
-          if (!status) return;
-          status.textContent = "";
-          window.setTimeout(function () {
-            status.textContent = "Email address copied to clipboard.";
-          }, 50);
-        },
-        function () {
-          window.location.href = link.href;
-        }
-      );
+  if (links.length && navigator.clipboard) {
+    links.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        var email = link.href.replace(/^mailto:/, "");
+        event.preventDefault();
+        navigator.clipboard.writeText(email).then(
+          function () {
+            if (!status) return;
+            status.textContent = "";
+            window.setTimeout(function () {
+              status.textContent = "Email address copied to clipboard.";
+            }, 50);
+          },
+          function () {
+            window.location.href = link.href;
+          }
+        );
+      });
     });
-  });
+  }
+
+  var toggle = document.querySelector(".theme-toggle");
+  function effectiveTheme() {
+    return root.getAttribute("data-theme") ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+  if (toggle) {
+    var labelTheme = function (t) {
+      toggle.setAttribute("aria-label", t === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    };
+    labelTheme(effectiveTheme());
+    toggle.addEventListener("click", function () {
+      var next = effectiveTheme() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      labelTheme(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    });
+  }
+
+  var navBtn = document.querySelector(".nav-toggle"), nav = document.querySelector(".site-nav");
+  if (navBtn && nav) {
+    var setNav = function (open) {
+      nav.classList.toggle("is-open", open);
+      navBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    navBtn.addEventListener("click", function () { setNav(!nav.classList.contains("is-open")); });
+    nav.addEventListener("click", function (e) { if (e.target.closest("a")) setNav(false); });
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("is-open") && !nav.contains(e.target) && !navBtn.contains(e.target)) setNav(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) { setNav(false); navBtn.focus(); }
+    });
+  }
+
+  // Deterministic FAQ/nav assistant; facts live in assistant.json, fetched once.
+  var launch = document.querySelector(".assistant-launch");
+  var panel = document.getElementById("assistant-panel");
+  if (launch && panel) {
+    var closeBtn = panel.querySelector(".assistant-close");
+    var answerEl = document.getElementById("assistant-answer");
+    var chipsEl = document.getElementById("assistant-chips");
+    var intents = null;
+
+    function showAnswer(intent) {
+      answerEl.innerHTML = "";
+      var q = document.createElement("strong");
+      q.textContent = intent.q;
+      var a = document.createElement("span");
+      a.textContent = intent.a;
+      answerEl.append(q, a);
+      if (intent.nav) {
+        var navLink = document.createElement("a");
+        navLink.className = "assistant-action";
+        navLink.href = intent.nav.href;
+        navLink.textContent = intent.nav.label;
+        answerEl.appendChild(navLink);
+      }
+    }
+
+    function renderChips(list) {
+      chipsEl.innerHTML = "";
+      list.forEach(function (intent) {
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "assistant-chip";
+        chip.textContent = intent.q;
+        chip.addEventListener("click", function () { showAnswer(intent); });
+        chipsEl.appendChild(chip);
+      });
+    }
+
+    function openPanel() {
+      panel.hidden = false;
+      launch.setAttribute("aria-expanded", "true");
+      closeBtn.focus();
+      if (intents) return;
+      fetch("/assets/data/assistant.json")
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          intents = json.intents;
+          renderChips(intents);
+        })
+        .catch(function () {});
+    }
+    function closePanel() {
+      panel.hidden = true;
+      launch.setAttribute("aria-expanded", "false");
+      launch.focus();
+    }
+
+    launch.addEventListener("click", openPanel);
+    closeBtn.addEventListener("click", closePanel);
+    panel.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closePanel();
+    });
+  }
 })();

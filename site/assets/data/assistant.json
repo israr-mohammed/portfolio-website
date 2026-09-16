@@ -1,0 +1,69 @@
+{
+  "intents": [
+    {
+      "q": "Tell me about Israr",
+      "a": "Israr is a Data Analyst, Business Analyst and BI Consultant based in Gurugram, with 4 years of experience across SQL, Python, Databricks and Power BI. He's currently a Business Analyst at EXL, supporting a UK utility client.",
+      "nav": { "label": "About", "href": "/about/" }
+    },
+    {
+      "q": "What roles is he looking for?",
+      "a": "Data Analyst, Business Analyst and BI Consultant roles.",
+      "nav": { "label": "Contact", "href": "/contact/" }
+    },
+    {
+      "q": "What is his experience?",
+      "a": "4 years across analytics, BI and business analysis: Business Analyst at EXL (Apr 2025-present), Assistant Manager at TVS Credit (Jan-Mar 2025), a career break for upskilling and exam prep (Feb 2023-Dec 2024), and Senior Associate/Associate at BYJU'S (Jul 2020-Jan 2023).",
+      "nav": { "label": "Experience", "href": "/experience/" }
+    },
+    {
+      "q": "What tools does he use?",
+      "a": "SQL, Python, Power BI, Databricks, Spark SQL, DAX, Power Query, Tableau, Pandas and Advanced Excel.",
+      "nav": { "label": "Skills", "href": "/skills/" }
+    },
+    {
+      "q": "What Power BI projects has he built?",
+      "a": "Business 360 Dashboard, IPL 2024 Analytics, and Beverage Market Analysis.",
+      "nav": { "label": "Projects", "href": "/projects/" }
+    },
+    {
+      "q": "Tell me about Business 360",
+      "a": "A Power BI dashboard built for a bootcamp challenge, replacing a computer-hardware distributor's Excel reporting with Finance, Sales, Marketing, Supply Chain and Executive views.",
+      "nav": { "label": "Business 360 case study", "href": "/projects/business-360/" }
+    },
+    {
+      "q": "What is Sukoon?",
+      "a": "A private Flask application Israr built for his own household: a shared organizer for tasks, shopping and a few lightweight trackers, with a Postgres backend and an installable PWA shell. It's his \"beyond analytics\" project.",
+      "nav": { "label": "Sukoon", "href": "/projects/sukoon/" }
+    },
+    {
+      "q": "What is his education?",
+      "a": "M.Tech in Production Engineering, MNIT Jaipur (2018-2020), and B.Tech in Mechanical Engineering, RTU Kota (2013-2017).",
+      "nav": { "label": "Resume", "href": "/resume/" }
+    },
+    {
+      "q": "What certifications does he have?",
+      "a": "The IBM Data Analyst Professional Certificate and the Codebasics Data Analytics Bootcamp.",
+      "nav": { "label": "Resume", "href": "/resume/" }
+    },
+    {
+      "q": "Where can I see the resume?",
+      "a": "The resume page has the full HTML resume plus a downloadable PDF.",
+      "nav": { "label": "Open resume", "href": "/resume/" }
+    },
+    {
+      "q": "How can I contact him?",
+      "a": "By email at israr4075@gmail.com, or via the contact page.",
+      "nav": { "label": "Contact", "href": "/contact/" }
+    },
+    {
+      "q": "Where is his GitHub?",
+      "a": "github.com/israr-mohammed",
+      "nav": { "label": "Open GitHub", "href": "https://github.com/israr-mohammed?tab=repositories" }
+    },
+    {
+      "q": "Where is his LinkedIn?",
+      "a": "linkedin.com/in/israrmohammed",
+      "nav": { "label": "Open LinkedIn", "href": "https://www.linkedin.com/in/israrmohammed" }
+    }
+  ]
+}

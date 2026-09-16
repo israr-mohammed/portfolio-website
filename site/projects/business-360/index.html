@@ -44,7 +44,8 @@
 <a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header container">
 <a class="brand" href="/">Israr Mohammed</a>
-<nav class="site-nav" aria-label="Primary">
+<div class="header-end">
+<nav class="site-nav" id="site-nav" aria-label="Primary">
 <ul>
 <li><a href="/">Home</a></li>
 <li><a href="/about/">About</a></li>
@@ -55,6 +56,15 @@
 <li><a href="/contact/">Contact</a></li>
 </ul>
 </nav>
+<button type="button" class="theme-toggle" aria-label="Switch to dark theme">
+<svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+<svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+<svg class="icon-menu" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+<svg class="icon-close" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+</button>
+</div>
 </header>
 <main id="main">
 
@@ -136,5 +146,21 @@
 </div>
 <p class="footer-copyright container">Israr Mohammed. &copy; 2026. Made with Claude Code.</p>
 </footer>
+<button type="button" class="assistant-launch" aria-haspopup="dialog" aria-controls="assistant-panel" aria-expanded="false">
+<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+Ask about Israr
+</button>
+<div class="assistant-panel" id="assistant-panel" role="dialog" aria-label="Ask about Israr" hidden>
+<div class="assistant-panel-header">
+<span>Ask about Israr</span>
+<button type="button" class="assistant-close" aria-label="Close">
+<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+</button>
+</div>
+<div class="assistant-body">
+<p class="assistant-answer" id="assistant-answer" aria-live="polite">Pick a question below for a factual, recruiter-friendly answer.</p>
+<div class="assistant-chips" id="assistant-chips"></div>
+</div>
+</div>
 </body>
 </html>
