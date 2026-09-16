@@ -41,13 +41,29 @@
 
 @layer tokens {
   :root {
-    /* color (blueprint §4.2), light values */
-    --c-sheet: #F4F6F5;
-    --c-ink: #1D2B45;
+    /* color — redesign (see blueprint §4.2 history): light, airy sheet with
+       a blue/violet accent language, contrast re-checked against the new
+       sheet color. */
+    --c-sheet: #FAFAFE;
+    --c-ink: #1B2340;
     --c-graphite: #4E5A6B;
-    --c-line: #C9D1D9;
-    --c-signal: #2450C8;
+    --c-line: #DCE0EC;
+    --c-signal: #3452E0;
     --c-marker: #B7791F;
+    /* Second accent: decorative only (hero gradient), never used for text,
+       so text-contrast guarantees above are unaffected by it. */
+    --c-accent-violet: #8B6BF2;
+    --hero-gradient: linear-gradient(135deg, #EAF0FF 0%, #F1ECFF 55%, var(--c-sheet) 100%);
+
+    /* corner radius — redesign: pill buttons/chips, rounded project imagery */
+    --radius-s: .5rem;
+    --radius-m: .75rem;
+    --radius-l: 1.25rem;
+    --radius-full: 999px;
+
+    /* one soft shadow, used only on project screenshots (blueprint §4.1:
+       "one bold element" — here, the rounded project imagery) */
+    --shadow-soft: 0 1px 2px rgba(27, 35, 64, .06), 0 12px 32px rgba(27, 35, 64, .10);
 
     /* spacing (blueprint §4.4): 4/8/12/16/24/32/48/64/96, larger steps fluid */
     --space-3xs: .25rem;
@@ -60,13 +76,13 @@
     --space-2xl: clamp(3rem, 2.4rem + 3vw, 4rem);
     --space-3xl: clamp(4rem, 3rem + 5vw, 6rem);
 
-    /* type scale (blueprint §4.3) */
+    /* type scale (blueprint §4.3); step-4 widened for a bolder hero headline */
     --step--1: clamp(.83rem, .8rem + .15vw, .9rem);
     --step-0: clamp(1.06rem, 1rem + .25vw, 1.13rem);
     --step-1: clamp(1.27rem, 1.18rem + .4vw, 1.5rem);
     --step-2: clamp(1.53rem, 1.38rem + .7vw, 2rem);
     --step-3: clamp(1.83rem, 1.6rem + 1.1vw, 2.66rem);
-    --step-4: clamp(2.2rem, 1.85rem + 1.8vw, 3.55rem);
+    --step-4: clamp(2.3rem, 1.9rem + 2.4vw, 3.9rem);
 
     --font-sans: "IBM Plex Sans", "IBM Plex Sans Fallback", sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
@@ -75,7 +91,7 @@
   }
 
   /* dark theme: OS preference only, per blueprint D6 (no manual toggle).
-     Values finalized and contrast-checked in S2 (§4.2), unchanged here. */
+     Redesign tokens re-verified for contrast against the dark sheet. */
   @media (prefers-color-scheme: dark) {
     :root {
       --c-sheet: #121A26;
@@ -84,6 +100,9 @@
       --c-line: #2C3A4F;
       --c-signal: #8FB0FF;
       --c-marker: #E3A94A;
+      --c-accent-violet: #B7A6F7;
+      --hero-gradient: linear-gradient(135deg, #182036 0%, #201B36 55%, var(--c-sheet) 100%);
+      --shadow-soft: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px rgba(0, 0, 0, .35);
     }
   }
 }
@@ -149,7 +168,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-xs);
-    padding-block: var(--space-m);
+    padding-block: var(--space-l);
     border-block-end: 1px solid var(--c-line);
   }
   .site-header .brand {
@@ -165,13 +184,20 @@
   .site-nav a:hover { color: var(--c-signal); text-decoration: underline; }
 
   .site-footer {
-    padding-block: var(--space-l);
+    padding-block: var(--space-xl);
     border-block-start: 1px solid var(--c-line);
     color: var(--c-graphite);
     font-size: var(--step--1);
   }
 
-  /* Hero (S4) */
+  /* Hero (S4; redesign: soft gradient panel, contained within .container
+     rather than edge-to-edge, plus rounded corners so it reads as a big
+     panel rather than a full-bleed background) */
+  .hero {
+    background: var(--hero-gradient);
+    border-radius: var(--radius-l);
+    padding-block: var(--space-2xl);
+  }
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -183,13 +209,24 @@
     align-items: flex-start;
     gap: var(--space-m);
   }
-  .hero-headline {
-    font-size: var(--step-2);
+  /* Redesign: the name (h1) stays first for heading semantics but reads as
+     a quiet intro line; the positioning statement becomes the large,
+     expressive headline the reference direction calls for. */
+  .hero h1 {
+    font-size: var(--step-1);
     font-weight: 600;
+    color: var(--c-graphite);
+  }
+  .hero-headline {
+    font-size: var(--step-4);
+    font-weight: 600;
+    line-height: 1.1;
     color: var(--c-ink);
   }
 
-  /* Facts list, reused as-is by the S5.3/5.4 case-study spec sheet later */
+  /* Facts list (reused as-is by the education/certifications grid and the
+     case-study spec sheet — kept a plain list there). Inside the hero only,
+     redesign turns it into small rounded chips at narrow widths. */
   .hero-facts {
     display: flex;
     flex-direction: column;
@@ -202,6 +239,17 @@
     color: var(--c-graphite);
   }
   .hero-facts dd { color: var(--c-ink); }
+
+  .hero .hero-facts {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .hero .hero-facts .fact {
+    padding: var(--space-2xs) var(--space-m);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-full);
+    background: var(--c-sheet);
+  }
 
   @media (width >= 64em) {
     .hero-grid {
@@ -222,9 +270,21 @@
       border-inline-start: 1px solid var(--c-line);
       padding-inline-start: var(--space-l);
     }
+    /* Chips are a narrow-viewport-only treatment inside the hero; at 64em+
+       it rejoins the plain divided list every other .hero-facts use gets. */
+    .hero .hero-facts {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+    .hero .hero-facts .fact {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+    }
   }
 
-  /* Buttons (S4) */
+  /* Buttons (S4; redesign: pill shape) */
   .actions {
     display: flex;
     flex-wrap: wrap;
@@ -236,9 +296,9 @@
     align-items: center;
     justify-content: center;
     min-height: 2.75rem;
-    padding-inline: var(--space-m);
+    padding-inline: var(--space-l);
     border: 1px solid var(--c-signal);
-    border-radius: 2px;
+    border-radius: var(--radius-full);
     font-weight: 600;
     font-size: var(--step-0);
     text-decoration: none;
@@ -265,21 +325,36 @@
   .about h2, .contact h2 { margin-block-end: var(--space-m); }
   .contact .actions { margin-block-start: var(--space-m); }
 
-  /* Experience (S6) */
+  /* Experience (S6; redesign: a thin accent rule + dot marker replaces the
+     plain top-border divider, for a cleaner modern hierarchy) */
   .experience h2 { margin-block-end: var(--space-m); }
   .timeline {
     display: flex;
     flex-direction: column;
   }
   .timeline-entry {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2xs);
     padding-block: var(--space-l) 0;
-    border-block-start: 1px solid var(--c-line);
+    padding-inline-start: var(--space-l);
+    border-inline-start: 2px solid var(--c-line);
   }
-  .timeline-entry:first-child { padding-block-start: 0; border-block-start: 0; }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: -.375rem;
+    inset-block-start: var(--space-l);
+    width: .75rem;
+    height: .75rem;
+    border-radius: var(--radius-full);
+    background: var(--c-signal);
+  }
+  .timeline-entry:first-child { padding-block-start: 0; }
+  .timeline-entry:first-child::before { inset-block-start: .1875rem; }
+  .timeline-entry:last-child { border-inline-start-color: transparent; }
   .timeline-entry h3 { font-size: var(--step-1); }
   /* Slightly stronger hierarchy for the current role, size only: no color,
      badge or card per blueprint §4.1/§10 (no logo walls, no stat cards). */
@@ -310,12 +385,19 @@
   }
   .timeline-entry details ul { margin-block-start: var(--space-2xs); }
 
-  /* Skills (S6) */
+  /* Skills (S6; redesign: each group becomes a lightly tinted, rounded block
+     for "visually clear grouped categories" — no percentage bars/ratings) */
   .skills h2 { margin-block-end: var(--space-m); }
   .skills-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-l);
+    gap: var(--space-m);
+  }
+  .skill-group {
+    padding: var(--space-m);
+    border-radius: var(--radius-m);
+    background: color-mix(in srgb, var(--c-signal) 6%, var(--c-sheet));
+    border: 1px solid var(--c-line);
   }
   .skill-group dt {
     font-size: var(--step--1);
@@ -362,18 +444,44 @@
   }
   .project-body { display: flex; flex-direction: column; gap: var(--space-2xs); }
   .project-body h3, .project-body h4 { font-size: var(--step-1); }
+  /* Redesign: rounded, softly shadowed imagery — the one visually rich
+     element in this section, per the owner's brief; every other block on
+     the page stays flat/calm. */
   .project-figure {
     margin: 0;
-    border: 1px solid var(--c-line);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
   }
   .project-figure img { display: block; width: 100%; height: auto; }
   .project-figure figcaption {
-    padding: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-s);
     color: var(--c-graphite);
     font-size: var(--step--1);
   }
   .project-views, .project-stack { color: var(--c-graphite); font-size: var(--step--1); }
-  .project-links a { font-weight: 600; }
+  /* Case study / live-dashboard links read as small pill buttons */
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin-block-start: var(--space-2xs);
+  }
+  .project-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding-inline: var(--space-m);
+    border: 1px solid var(--c-signal);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--step--1);
+    text-decoration: none;
+    color: var(--c-signal);
+  }
+  .project-links a:hover { background: var(--c-signal); color: var(--c-sheet); }
+  .project-links a:first-child { background: var(--c-signal); color: var(--c-sheet); }
+  .project-links a:first-child:hover { background: var(--c-ink); border-color: var(--c-ink); }
 
   /* Featured project: spans the grid and, at 64em, splits into a screenshot
      column and a text column (screenshot first, per the owner's direction
@@ -480,10 +588,45 @@
     h1 { font-size: var(--step-2); }
     h2 { font-size: var(--step-0); margin-block-end: var(--space-3xs); }
     .case-grid, .experience .timeline, .skills-grid, .education-grid, .project-grid { gap: var(--space-3xs); }
-    .timeline-entry { padding-block-start: var(--space-3xs); }
+    .timeline-entry {
+      padding-block-start: var(--space-3xs);
+      padding-inline-start: 0;
+      border-inline-start: 0;
+    }
+    .timeline-entry::before { display: none; }
     .timeline-bullets, .feature-list { gap: var(--space-3xs); }
     .project-block { gap: var(--space-3xs); padding-block-start: var(--space-3xs); }
     .project-grid { grid-template-columns: repeat(2, 1fr); }
+    /* Redesign additions (gradient hero, pill links, tinted skill blocks)
+       don't belong on paper: revert to the plain, ink-light print treatment. */
+    .hero {
+      background: none;
+      padding-block: 0;
+      border-radius: 0;
+    }
+    .hero-headline { font-size: var(--step-1); }
+    .hero-facts .fact {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+    }
+    .project-figure { box-shadow: none; border-radius: 0; }
+    .project-links a {
+      display: inline;
+      min-height: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+      color: var(--c-ink);
+    }
+    .skill-group {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+    }
     a[href^="http"], a[href^="/"] { overflow-wrap: anywhere; }
     /* Power BI report links carry a long opaque token that's meaningless on
        paper and would blow out the page count; the link itself still stays
