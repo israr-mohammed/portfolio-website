@@ -6,6 +6,10 @@
       "nav": { "label": "About", "href": "/about/" }
     },
     {
+      "q": "[CMS SMOKE TEST] question?",
+      "a": "[CMS SMOKE TEST] temporary answer."
+    },
+    {
       "q": "What roles is he looking for?",
       "a": "Data Analyst, Business Analyst and BI Consultant roles.",
       "nav": { "label": "Contact", "href": "/contact/" }
